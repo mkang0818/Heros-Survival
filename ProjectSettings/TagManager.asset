@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Enemy
+  - Bullet
+  - FxTemporaire
+  - Money
+  - HeelZone
+  - Ground
+  - AttackPos
+  - SideWall
+  - EmyBullet
+  - shield
+  - Diamond
+  - Health
+  - PlayerSphere
+  - CH12SkillZone
+  - SkillBullet
+  - HeelBullet
+  - Drop
+  - NextCoin
+  - MeleeAt
+  - BossFallBullet
+  - BossSpinBullet
+  - BossFire
+  - SlowBullet
+  - Turret
+  - TurretBullet
+  - Bomb
+  - DamageTextEffect
+  - HeelTextEffect
+  - Ch1SkillBullet
+  - RandomBox
+  - Ch11Mini
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Wall
+  - Water
+  - UI
+  - Enemy
+  - Coin
+  - Diamond
+  - Health
+  - RandomBox
+  - dd
+  - Boss
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 1770647023
+    locked: 0
