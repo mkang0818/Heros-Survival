@@ -17,8 +17,8 @@ MonoBehaviour:
   level: 1
   MaxExp: 100
   CurExp: 100
-  MaxHp: 1.2121212e+15
-  CurHp: 1.212121e+15
+  MaxHp: 12
+  CurHp: 12
   HpRecovery: 1
   Absorption: 0.1
   MaxbulletCount: 20
@@ -29,7 +29,7 @@ MonoBehaviour:
   AttackSp: 0.35
   AttackcoolTime: 0
   MoveSp: 4
-  Damage: 10000
+  Damage: 10
   SkillDamage: 10
   BombDamage: 7
   Science: 8
