@@ -15,7 +15,7 @@ public class TurretBulletController : PoolAble
     private Rigidbody rb;
     public GameObject[] Detached;
 
-    public Transform player;
+    public Transform target;
     public float range;
     void Start()
     {
@@ -29,11 +29,15 @@ public class TurretBulletController : PoolAble
             rb.velocity = transform.forward * speed;
             //transform.position += transform.forward * (speed * Time.deltaTime);         
         }
-        BulletDestroy(player, range);
+        if (target == null)
+        {
+            ReleaseObject();
+        }
+        else BulletDestroy(target, range);
     }
-    void BulletDestroy(Transform player, float range)
+    void BulletDestroy(Transform target, float range)
     {
-        float Distance = Vector3.Distance(transform.position, player.position);
+        float Distance = Vector3.Distance(transform.position, target.position);
         if (Distance >= range * 10)
         {
             ReleaseObject();
@@ -45,9 +49,6 @@ public class TurretBulletController : PoolAble
         //Destroy projectile on collision 총알 충돌 시 삭제
         if (col.gameObject.CompareTag("Player"))
         {
-            //GameObject hiteffect = Instantiate(hit, transform.position, Quaternion.identity);
-            //print("총알삭제");
-
             ReleaseObject();
         }
     }

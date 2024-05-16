@@ -34,7 +34,7 @@ public class Ch8Stat : HeroStat
                 float Zpos = Random.Range(-8, 8);
 
                 GameObject TurretObj = Instantiate(Turret, new Vector3(Xpos, 0, Zpos), Quaternion.identity);
-                //TurretObj.GetComponent<TurretController>().turretLevel = herodata.Science;
+                TurretObj.GetComponent<TurretController>().BulletText = "TurretBombBullet";
 
                 herodata.second_skillcurTime = herodata.second_skillmaxTime;
             }           

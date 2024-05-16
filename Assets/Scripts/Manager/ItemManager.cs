@@ -1177,7 +1177,8 @@ public class ItemManager : MonoBehaviour
                 float randX = Random.Range(-10, 10);
                 float randZ = Random.Range(-10, 10);
                 Vector3 RandomPos = new Vector3(randX, 0, randZ);
-                Instantiate(DefaultTurretPrefab, RandomPos, Quaternion.identity);
+                var turret = Instantiate(DefaultTurretPrefab, RandomPos, Quaternion.identity);
+                turret.GetComponent<TurretController>().BulletText = "TurretDefaultBullet";
             }
         }
 
@@ -1190,7 +1191,8 @@ public class ItemManager : MonoBehaviour
                 float randX = Random.Range(-10, 10);
                 float randZ = Random.Range(-10, 10);
                 Vector3 RandomPos = new Vector3(randX, 0, randZ);
-                Instantiate(BombTurretPrefab, RandomPos, Quaternion.identity);
+                var turret = Instantiate(BombTurretPrefab, RandomPos, Quaternion.identity);
+                turret.GetComponent<TurretController>().BulletText = "TurretBombBullet";
             }
         }
 
@@ -1203,7 +1205,8 @@ public class ItemManager : MonoBehaviour
                 float randX = Random.Range(-10, 10);
                 float randZ = Random.Range(-10, 10);
                 Vector3 RandomPos = new Vector3(randX, 0, randZ);
-                Instantiate(SlowTurretPrefab, RandomPos, Quaternion.identity);
+                var turret = Instantiate(SlowTurretPrefab, RandomPos, Quaternion.identity);
+                turret.GetComponent<TurretController>().BulletText = "TurretSlowBullet";
             }
         }
 

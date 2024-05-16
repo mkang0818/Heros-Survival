@@ -55,10 +55,11 @@ public class HeelTurretController : PoolAble
 
         if (CurAttackSp <= 0)
         {
-            var bullet = PoolingManager.instance.GetGo(BulletText);
+            var bullet = PoolingManager.instance.GetGo("TurretHeelBullet");
+            print(bullet);
             bullet.transform.rotation = ShotPos.rotation;
             bullet.transform.position = ShotPos.position;
-            bullet.GetComponent<TurretBulletController>().player = gameObject.transform;
+            bullet.GetComponent<TurretBulletController>().target = gameObject.transform;
             bullet.GetComponent<TurretBulletController>().range = 2;
             CurAttackSp = AttackSp;
         }

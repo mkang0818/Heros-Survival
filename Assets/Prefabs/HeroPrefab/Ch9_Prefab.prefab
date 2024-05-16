@@ -10780,6 +10780,8 @@ MonoBehaviour:
   isReload: 0
   isDodge: 0
   isinvincible: 0
+  IsCh5Skill2: 0
+  Skill2_Sound: {fileID: 8300000, guid: 5b8d11c591886e14e8b53d7d728dbd4b, type: 3}
   HeelTurret: {fileID: 939335178, guid: 5a1bbd84eb1399a4e9a53e3f78c8e8a5, type: 3}
   ThunderSkill: {fileID: 100014, guid: c8d38c06e20cff94fb7e79afc692baa6, type: 3}
   skill1_sprite: {fileID: 21300000, guid: fbff647b1dddd84418c9da4c33ea3d97, type: 3}
