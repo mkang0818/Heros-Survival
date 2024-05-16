@@ -35,9 +35,11 @@ public class Ch7Stat : HeroStat
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 SoundManager.Instance.SoundPlay("Ch7_Skill2", Skill2Audio);
-                for (int i = 0; i < 9; i++)
+                for (int i = 0; i < 20; i++)
                 {
-                    GameObject Bullet = Instantiate(SkillObj, transform.position, transform.rotation * Quaternion.Euler(0, 45 * i, 0));
+                    var Bullet = PoolingManager.instance.GetGo("Bullet");
+                    Bullet.transform.position = transform.position;
+                    Bullet.transform.rotation = transform.rotation * Quaternion.Euler(0, 22.5f * i, 0);
                     Bullet.GetComponent<BulletController>().range = herodata.range;
                     Bullet.GetComponent<BulletController>().Player = gameObject;
                 }

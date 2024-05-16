@@ -36,6 +36,7 @@ public class CreateRobot : MonoBehaviour
 
         anim.SetBool("Run",true);
         Attack();
+        ObjRotation(enemy);
     }
     IEnumerator DestroyObj()
     {
@@ -49,8 +50,7 @@ public class CreateRobot : MonoBehaviour
         if (FoundObjects.Count == 0)
         {
             // 처리할 내용 (예: 적이 없는 경우 처리)
-            print("적없음"); 
-            ObjRotation(target);
+            enemy = target;
         }
         else
         {
@@ -68,14 +68,13 @@ public class CreateRobot : MonoBehaviour
                         shortDis = Distance;
                 }                    
             }
-
-            ObjRotation(enemy);
-
             if (attackCurCooltime <= 0 && shortDis < 7)
             {
                 anim.SetTrigger("Shot");
 
-                GameObject bullet = Instantiate(BulletPrefab, ShotPos.transform.position, ShotPos.transform.rotation);
+                var bullet = PoolingManager.instance.GetGo("Bullet");
+                bullet.transform.position = ShotPos.transform.position;
+                bullet.transform.rotation = ShotPos.transform.rotation;
                 bullet.GetComponent<BulletController>().Player = gameObject;
                 bullet.GetComponent<BulletController>().range = range;
                 attackCurCooltime = 1;

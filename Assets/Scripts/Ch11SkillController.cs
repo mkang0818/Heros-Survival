@@ -31,7 +31,6 @@ public class Ch11SkillController : MonoBehaviour
         {
             if (isFolow && target != null)
             {
-                print("¿Ãµø");
                 Vector3 direction = (target.position - transform.position).normalized;
                 transform.position += direction * 4 * Time.deltaTime;
             }

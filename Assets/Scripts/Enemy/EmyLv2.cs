@@ -33,7 +33,6 @@ public class EmyLv2 : Enemy
         while (true)
         {
             // 플레이어를 타겟으로 설정하여 이동함
-            print(target);
             if (agent.isActiveAndEnabled) agent.SetDestination(target.transform.position);
 
             if (agent.isActiveAndEnabled)
