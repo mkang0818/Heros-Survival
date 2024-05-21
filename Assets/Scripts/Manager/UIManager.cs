@@ -41,6 +41,10 @@ public class StoreUI
     public GameObject CharInfoUI;
     public GameObject CharBuyUI;
     public GameObject[] InfoStars;
+    
+    public GameObject StoreSelectUI;
+    public GameObject CharListUI;
+    public GameObject ItemListUI;
 
     public Image InfoUIImg;
     public TextMeshProUGUI InfoUIName;
@@ -178,12 +182,25 @@ public class UIManager : MonoBehaviour
     public void SelectStart() { MainUIGroup.CharSelect.CHarSelectPopup.SetActive(true); MainUIGroup.Main.MainPopUp.SetActive(false); MainUIGroup.CharSelect.SelectUICharName.text = ""; SelecthasUpdate(); }
     public void InRankUI() { MainUIGroup.Rank.RankPopup.SetActive(true); MainUIGroup.Main.MainPopUp.SetActive(false); RankUpdate(); MyRank(); }
 
+    public void BtCharListOn()
+    {
+        MainUIGroup.Store.StoreSelectUI.SetActive(false);
+        MainUIGroup.Store.CharListUI.SetActive(true);
+        MainUIGroup.Store.ItemListUI.SetActive(false);
+    }
+    public void BtItemListOn()
+    {
+        MainUIGroup.Store.StoreSelectUI.SetActive(false);
+        MainUIGroup.Store.CharListUI.SetActive(false);
+        MainUIGroup.Store.ItemListUI.SetActive(true);
+    }
     public void OnMainUI()
     {
         PlayerPrefs.Save();
         DataManager.Instance.SaveData();
         IsUpgrade = false;
         MainUIGroup.Main.MainPopUp.SetActive(true); MainUIGroup.CharSelect.CHarSelectPopup.SetActive(false);
+        MainUIGroup.Store.StoreSelectUI.SetActive(true); MainUIGroup.Store.ItemListUI.SetActive(false); MainUIGroup.Store.CharListUI.SetActive(false);
         MainUIGroup.Upgrade.UpgradePopup.SetActive(false); MainUIGroup.Store.StorePopup.SetActive(false); MainUIGroup.Option.OptionPopup.SetActive(false); MainUIGroup.Store.StorePopup.SetActive(false); MainUIGroup.Rank.RankPopup.SetActive(false);
         //Destroy(UpgradeChar);
         MainUIGroup.Main.BackGroundObj.SetActive(true);
