@@ -289,7 +289,7 @@ public class UIManager : MonoBehaviour
             info.AppendLine("정렬번호 : " + jsonData["index"].ToString());
             info.AppendLine();
 
-            //Debug.Log(info);
+            Debug.Log(info);
             MainUIGroup.Rank.RankTopScore[count].text = jsonData["score"].ToString();
             MainUIGroup.Rank.RankTopNickName[count].text = jsonData["nickname"].ToString();
             //print((int)jsonData["atk"]-1);
