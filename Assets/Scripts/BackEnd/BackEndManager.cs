@@ -115,7 +115,7 @@ public class BackEndManager : MonoBehaviour
             Debug.Log("테스트를 종료합니다.");
         });
     }*/
-    public void Login()
+    /*public void Login()
     {
         Login(idInput.text, "1234");
     }
@@ -155,5 +155,5 @@ public class BackEndManager : MonoBehaviour
                 print("최고기록 갱신실패");
             }
         });
-    }
+    }*/
 }

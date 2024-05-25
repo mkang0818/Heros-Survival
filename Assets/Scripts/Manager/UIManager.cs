@@ -92,6 +92,10 @@ public class RankUI
     public Sprite[] CharFaceImg = new Sprite[14];
     public TextMeshProUGUI[] RankTopScore = new TextMeshProUGUI[10];
     public TextMeshProUGUI[] RankTopNickName = new TextMeshProUGUI[10];
+
+    public Image MyRankCountryImg;
+    public Image[] RankListCountryImg;
+    public Sprite[] CountryIcon;
 }
 [System.Serializable]
 public class OptionUI
@@ -250,15 +254,26 @@ public class UIManager : MonoBehaviour
                 info.AppendLine("점수 : " + jsonData["score"].ToString());
                 info.AppendLine("gamerInDate : " + jsonData["gamerInDate"].ToString());
                 info.AppendLine("정렬번호 : " + jsonData["index"].ToString());
+
+                string[] extraData = jsonData["atk"].ToString().Split("|");
+                CountryNum = extraData[0];
+                CharNum = extraData[1];
+
+                info.AppendLine("나라번호 : " + CountryNum);
+                info.AppendLine("영웅번호 : " + CharNum);
                 info.AppendLine();
                 //Debug.Log(info);
-                MainUIGroup.Rank.myCharImg.sprite = MainUIGroup.Rank.CharFaceImg[(int)jsonData["atk"] - 1];
+                MainUIGroup.Rank.myCharImg.sprite = MainUIGroup.Rank.CharFaceImg[int.Parse(CharNum) - 1];
+                MainUIGroup.Rank.MyRankCountryImg.sprite = MainUIGroup.Rank.CountryIcon[int.Parse(CharNum) - 1];
+
                 MainUIGroup.Rank.myRank.text = ((int)jsonData["rank"]).ToString();
                 MainUIGroup.Rank.myNickName.text = jsonData["nickname"].ToString();
                 MainUIGroup.Rank.myRankScore.text = jsonData["score"].ToString();
             }
         }
     }
+    string CountryNum;
+    string CharNum;
     public void RankUpdate()
     {
         Debug.Log("랭킹 조회");
@@ -287,13 +302,22 @@ public class UIManager : MonoBehaviour
             info.AppendLine("점수 : " + jsonData["score"].ToString());
             info.AppendLine("gamerInDate : " + jsonData["gamerInDate"].ToString());
             info.AppendLine("정렬번호 : " + jsonData["index"].ToString());
+
+            string[] extraData = jsonData["atk"].ToString().Split("|");
+            CountryNum = extraData[0];
+            CharNum = extraData[1];
+
+
+            info.AppendLine("나라번호 : " + CountryNum);
+            info.AppendLine("영웅번호 : " + CharNum);
             info.AppendLine();
 
             Debug.Log(info);
             MainUIGroup.Rank.RankTopScore[count].text = jsonData["score"].ToString();
             MainUIGroup.Rank.RankTopNickName[count].text = jsonData["nickname"].ToString();
             //print((int)jsonData["atk"]-1);
-            MainUIGroup.Rank.RankTopCharImg[count].sprite = MainUIGroup.Rank.CharFaceImg[(int)jsonData["atk"] - 1];
+            MainUIGroup.Rank.RankTopCharImg[count].sprite = MainUIGroup.Rank.CharFaceImg[int.Parse(CharNum) - 1];
+            MainUIGroup.Rank.RankListCountryImg[count].sprite = MainUIGroup.Rank.CountryIcon[int.Parse(CharNum) - 1];
             count++; // 랭킹 수 증가
         }
     }

@@ -16,6 +16,7 @@ using Steamworks;
 using BackEnd;
 using TMPro;
 using System.Threading.Tasks; // [변경] async 기능을 이용하기 위해서는 해당 namepsace가 필요합니다.
+using System;
 #endif
 
 //
@@ -25,7 +26,6 @@ using System.Threading.Tasks; // [변경] async 기능을 이용하기 위해서는 해당 name
 [DisallowMultipleComponent]
 public class SteamManager : MonoBehaviour
 {
-
     public static SteamManager instance = null;
 
     string idNickName = "";
@@ -38,6 +38,8 @@ public class SteamManager : MonoBehaviour
     private HAuthTicket m_HAuthTicket;
 
     string sessionTicket = string.Empty;
+
+    public int CountryNum = 99;
 
     protected Callback<GetAuthSessionTicketResponse_t> m_GetAuthSessionTicketResponse;
 
@@ -102,12 +104,58 @@ public class SteamManager : MonoBehaviour
         Debug.Log("스팀 아이디 : " + SteamUser.GetSteamID()); // 고유번호 - 숫자 조합
         Debug.Log("사용자 닉네임 : " + SteamFriends.GetPersonaName()); // 닉네임 - 닉네임 (ex : Backend01 )
         Debug.Log("사용자 국가 정보 : " + SteamUtils.GetIPCountry()); // 유저 국가 정보 - KR
+        CountryCode(SteamUtils.GetIPCountry());
 
+
+        //각 나라별로 고유번호 주는 메서드 작성
 
         idNickName = SteamFriends.GetPersonaName().ToString();
         DataManager.Instance.nowPlayer.nickName = idNickName;
         DataManager.Instance.SaveData();
         Login(idNickName, idNickName);
+    }
+    enum CountryName
+    {
+        KR,
+        US,
+        JP,
+        // 필요한 만큼 추가 가능
+    }
+
+    void CountryCode(string countryName)
+    {
+        // 문자열을 enum으로 변환하여 스위치 문에서 처리합니다.
+        CountryName name;
+        if (Enum.TryParse(countryName, out name))
+        {
+            switch (name)
+            {
+                case CountryName.KR:
+                    CountryNum = 1;
+                    // 한국에 대한 처리
+                    Debug.Log("한국의 코드는 1입니다.");
+                    break;
+                case CountryName.US:
+                    CountryNum = 2;
+                    // 미국에 대한 처리
+                    Debug.Log("미국의 코드는 1입니다.");
+                    break;
+                case CountryName.JP:
+                    CountryNum = 3;
+                    // 일본에 대한 처리
+                    Debug.Log("일본의 코드는 1입니다.");
+                    break;
+                // 필요한 만큼 추가 가능
+                default:
+                    // 예외 처리 또는 기본 동작
+                    Debug.LogWarning("해당 국가 코드가 정의되지 않았습니다.");
+                    break;
+            }
+        }
+        else
+        {
+            Debug.LogError("올바른 국가 코드가 아닙니다.");
+        }
     }
     public async void Register(string id, string pw)
     {
@@ -117,7 +165,7 @@ public class SteamManager : MonoBehaviour
             BackendLogin.Instance.CustomSignUp(id, pw); // [추가] 뒤끝 회원가입 함수
             BackendGameData.Instance.GameDataInsert(); //[추가] 데이터 삽입 함수
             BackendLogin.Instance.UpdateNickname(id);
-            BackendRank.Instance.RankInsert(0, 3);
+            BackendRank.Instance.RankInsert(0, 1, CountryNum);
         });
     }
     async void Login(string id, string pw)
@@ -132,14 +180,14 @@ public class SteamManager : MonoBehaviour
     {
         await Task.Run(() =>
         {
-            print("닉네임:" + Backend.UserNickName + "현재최고기록:" + BackendRank.Instance.RankGet() + "캐릭터" + charCode + "번");
+            //print("닉네임:" + Backend.UserNickName + "현재최고기록:" + BackendRank.Instance.RankGet() + "캐릭터" + charCode + "번");
 
-            int currentBestScore = BackendRank.Instance.RankGet();
+            int currentBestScore = 0;//BackendRank.Instance.RankGet();
             print("자신 최고기록" + currentBestScore);
             if (score > currentBestScore)
             {
                 print("최고기록 갱신");
-                BackendRank.Instance.RankInsert(score, charCode); // 랭킹 등록하기 함수
+                BackendRank.Instance.RankInsert(score, charCode, CountryNum); // 랭킹 등록하기 함수
             }
             else
             {

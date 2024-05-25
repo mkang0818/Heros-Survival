@@ -8,7 +8,7 @@ using BackEnd;
 public class UserData
 {
     public int level = 1;
-    public float atk = 3.5f;
+    public string atk = "11";
     public string info = string.Empty;
     public Dictionary<string, int> inventory = new Dictionary<string, int>();
     public List<string> equipment = new List<string>();
@@ -67,7 +67,7 @@ public class BackendGameData
 
         Debug.Log("데이터를 초기화합니다.");
         userData.level = 1;
-        userData.atk = 1;
+        userData.atk = "";
 
         Debug.Log("뒤끝 업데이트 목록에 해당 데이터들을 추가합니다.");
         Param param = new Param();
@@ -114,7 +114,7 @@ public class BackendGameData
                 userData = new UserData();
 
                 userData.level = int.Parse(gameDataJson[0]["level"].ToString());
-                userData.atk = float.Parse(gameDataJson[0]["atk"].ToString());
+                //userData.atk = float.Parse(gameDataJson[0]["atk"].ToString());
                 userData.info = gameDataJson[0]["info"].ToString();
 
                 foreach (string itemKey in gameDataJson[0]["inventory"].Keys)

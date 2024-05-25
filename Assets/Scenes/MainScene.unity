@@ -46268,6 +46268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NickNameText: {fileID: 861813871}
   IsLogin: 0
+  CountryNum: 99
 --- !u!4 &798659735 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4400907454590214, guid: e158d3f5328e1fe4196ecc5d8eebcee8,
@@ -52286,6 +52287,22 @@ MonoBehaviour:
       - {fileID: 1898619011}
       - {fileID: 1934011405}
       - {fileID: 1927557198}
+      MyRankCountryImg: {fileID: 449368793}
+      RankListCountryImg:
+      - {fileID: 920427958}
+      - {fileID: 1618862131}
+      - {fileID: 2112134025}
+      - {fileID: 836400191}
+      - {fileID: 1659886096}
+      - {fileID: 957070323}
+      - {fileID: 820061939}
+      - {fileID: 383760555}
+      - {fileID: 1852802506}
+      - {fileID: 1562339746}
+      CountryIcon:
+      - {fileID: 21300000, guid: 4fe77c0b9da6147d59495b84b03b6e7b, type: 3}
+      - {fileID: 21300000, guid: c7bdc81b7941e46f2b0c2c74783d6286, type: 3}
+      - {fileID: 21300000, guid: 4115676575db24082b0561504e4c8aae, type: 3}
     Option:
       OptionPopup: {fileID: 1820391776}
       isAIBt: {fileID: 562378167}
