@@ -16,7 +16,7 @@ MonoBehaviour:
   CharUpgrade: 0
   level: 1
   MaxExp: 100
-  CurExp: 100
+  CurExp: 0
   MaxHp: 12
   CurHp: 12
   HpRecovery: 1

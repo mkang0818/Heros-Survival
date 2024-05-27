@@ -534,7 +534,7 @@ public class InGameManager : MonoBehaviour
             PlusRerollMoney = 1;
 
             ItemActiveNum = 33;
-            SpawnManagerActive(4);
+            SpawnManagerActive(1);
 
 
             //InGameUIGroup.InData.SpawnObj[6].SetActive(true);
