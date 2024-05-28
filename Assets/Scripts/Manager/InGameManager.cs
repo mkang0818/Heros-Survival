@@ -526,7 +526,6 @@ public class InGameManager : MonoBehaviour
             PlusRerollMoney = 2;
 
             SpawnManagerActive(2);
-            //SpawnObj[i].GetComponent<SpawnManager>().level *= 1.2f;
             EmyItem();
         }
         else if (StageNum >= 0)
@@ -534,7 +533,7 @@ public class InGameManager : MonoBehaviour
             PlusRerollMoney = 1;
 
             ItemActiveNum = 33;
-            SpawnManagerActive(1);
+            SpawnManagerActive(3);
 
 
             //InGameUIGroup.InData.SpawnObj[6].SetActive(true);
@@ -551,6 +550,7 @@ public class InGameManager : MonoBehaviour
             InGameUIGroup.InData.SpawnObj[i].SetActive(true);
             InGameUIGroup.InData.SpawnObj[i].GetComponent<SpawnManager>().StartCoroutine("spawnMosnter");
             InGameUIGroup.InData.SpawnObj[i].GetComponent<SpawnManager>().target = player.gameObject;
+            InGameUIGroup.InData.SpawnObj[i].GetComponent<SpawnManager>().level *= 0.5f;
         }
     }
     // 레벨업 버튼 기능

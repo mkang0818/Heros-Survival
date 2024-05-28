@@ -227,7 +227,7 @@ public class EnemyController : PoolAble
     IEnumerator BombTrigger(GameObject HitObj)
     {
         yield return new WaitForSeconds(0.1f);
-        HitObj.GetComponent<SphereCollider>().enabled = false;
+        if(HitObj!=null) HitObj.GetComponent<SphereCollider>().enabled = false;
         //¿À·ù³²
     }
     IEnumerator SlowMove()

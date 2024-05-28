@@ -9496,7 +9496,8 @@ MonoBehaviour:
   isMouse: 1
   ShotPos:
   - {fileID: 0}
-  BulletPrefab: {fileID: 0}
+  BulletPrefab: {fileID: 1795072395756124, guid: d223fbf886f2aa4408426d093198ef12,
+    type: 3}
   bulletCase: {fileID: 2994192466996699584, guid: 021697ebfed1fb34fa840807a8ae3a0f,
     type: 3}
   LevelUpEffect: {fileID: 9005422002759511127}
@@ -9565,6 +9566,7 @@ MonoBehaviour:
   isReload: 0
   isDodge: 0
   isinvincible: 0
+  IsCh5Skill2: 0
   AttackAudio: {fileID: 8300000, guid: 30255263c3037fc45adf8eae0893c2a9, type: 3}
   Skill1Audio: {fileID: 8300000, guid: 459faf8ee6826684eb8e4e90db32674d, type: 3}
   Skill2AudioArr: {fileID: 8300000, guid: e692b3ab4548f0845abec85ae36c9c8b, type: 3}
@@ -11766,7 +11768,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 18
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2958437048252750098
 Transform:
   m_ObjectHideFlags: 0
