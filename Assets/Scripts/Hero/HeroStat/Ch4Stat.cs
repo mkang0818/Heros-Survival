@@ -125,7 +125,7 @@ public class Ch4Stat : HeroStat
     {
         base.Move(player, anim); this.player = player;
     }
-    public override void AIAttack(Animator anim, GameObject BulletPrefab, Transform[] ShotPos, GameObject ReloadGauge, GameObject bulletCase, GameObject MeleeAtObj)
+    public override void AIAttack(Animator anim, GameObject BulletPrefab, Transform[] ShotPos, GameObject ReloadGauge, GameObject bulletCase)
     {
         herodata.attackcoolTime -= Time.deltaTime;
         FoundObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
@@ -174,7 +174,7 @@ public class Ch4Stat : HeroStat
     {
         return;
     }
-    public override void Shot(Animator anim, GameObject BulletPrefab, Transform[] ShotPos, GameObject ReloadGauge, GameObject bulletCase, GameObject MeleeAtObj)
+    public override void Shot(Animator anim, GameObject BulletPrefab, Transform[] ShotPos, GameObject ReloadGauge, GameObject bulletCase)
     {
         herodata.attackcoolTime -= Time.deltaTime;
         if (herodata.attackcoolTime <= 0 && !isSpin)

@@ -29,7 +29,7 @@ public class Ch1Stat : HeroStat
     public override void Skill()
     {
         //HeelPack-H1
-        if (herodata.second_skillcurTime <= 0 && !base.isMelee)
+        if (herodata.second_skillcurTime <= 0)
         {
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
@@ -40,7 +40,7 @@ public class Ch1Stat : HeroStat
             }
         }
         //Rocket-H1
-        if (herodata.skillcurTime <= 0 && !base.isMelee)
+        if (herodata.skillcurTime <= 0)
         {
             if (Input.GetMouseButtonDown(1))
             {

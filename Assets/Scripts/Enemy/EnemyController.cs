@@ -9,7 +9,6 @@ public class EnemyController : PoolAble
 {
     public AudioClip[] ArrPlayerAtAudio;
     public AudioClip[] ArrPlayerCriAtAudio;
-    public AudioClip[] ArrPlayerMeleeAtAudio;
     public AudioClip[] PlayerBombAudio;
 
     private NavMeshAgent agent;
@@ -149,19 +148,9 @@ public class EnemyController : PoolAble
             emydata.emyCurHP -= Value;
             DamageHeelText("DamageText", Value);
             KnockBack();
+
             StartCoroutine(OnDamage());
             StartCoroutine(BombTrigger(col.gameObject));
-        }
-        if (col.gameObject.CompareTag("MeleeAt"))
-        {
-            AttackSound("PlayerMeleeAt", ArrPlayerMeleeAtAudio);
-            float Value = target.GetComponent<PlayerController>().herodata.meleeAt;
-            emydata.emyCurHP -= Value;
-            GameObject hiteffect = Instantiate(hitEffect, transform.position, Quaternion.identity);
-            Destroy(hiteffect, 0.2f);
-
-            DamageHeelText("DamageText", Value);
-            StartCoroutine(OnDamage());
         }
         if (col.gameObject.CompareTag("SlowBullet"))
         {
@@ -218,7 +207,6 @@ public class EnemyController : PoolAble
             }
 
             DamageHeelText("DamageText", Value);
-
             KnockBack();
             StartCoroutine(OnDamage()); //피격 구현
         }
@@ -321,7 +309,8 @@ public class EnemyController : PoolAble
     }
     void KnockBack()
     {
-        if (emydata.emyCode != 2 && emydata.emyCode != 5 && emydata.emyCode != 6 && emydata.emyCode != 8)
+        int EmyNum = Emy.emydata.emyCode;
+        if (EmyNum == 1 || EmyNum == 2 || EmyNum == 4 || EmyNum == 7)
         {
             if (!isKnockBack)
             {

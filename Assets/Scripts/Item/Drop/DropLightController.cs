@@ -15,6 +15,7 @@ public class DropLightController : PoolAble
     void DropObj()
     {
         var Drop = PoolingManager.instance.GetGo(DropText);
+        Drop.layer = 7;
         Drop.GetComponent<DropController>().isFollow = false;
         Drop.transform.position = transform.position;
         Drop.GetComponent<DropController>().target = target;

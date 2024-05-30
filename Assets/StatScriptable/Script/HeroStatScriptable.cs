@@ -144,18 +144,4 @@ public class HeroStatScriptable : ScriptableObject
     [SerializeField]
     private float Second_skillCurTime; //두번째 스킬 현재 쿨타임
     public float second_skillcurTime { get { return Second_skillCurTime; } set { Second_skillCurTime = value; } }
-
-    
-    [Header("근접공격")]
-    [SerializeField]
-    private float MeleeAt;
-    public float meleeAt { get { return MeleeAt; } set { MeleeAt = value; } }
-
-    [SerializeField]
-    private float MeleeAtMaxTime;
-    public float meleeAtMaxTime { get { return MeleeAtMaxTime; } set { MeleeAtMaxTime = value; } }
-
-    [SerializeField]
-    private float MeleeAtCurTime;
-    public float meleeAtcurTime { get { return MeleeAtCurTime; } set { MeleeAtCurTime = value; } }
 }

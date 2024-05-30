@@ -73,7 +73,6 @@ public class PlayerController : MonoBehaviour
     public GameObject LevelUpEffect;
     public SphereCollider PlayerSphere;
 
-    public GameObject MeleeAtObj;
     public bool isSpinBullet = false;
     public GameObject SpinBullet;
     public bool isMultiBullet = false;
@@ -159,13 +158,13 @@ public class PlayerController : MonoBehaviour
             if (!isAI)
             {
                 if (isMouse) LookMouseCursor();
-                herostat.Shot(anim, BulletPrefab, ShotPos, ReloadGauge, bulletCase, MeleeAtObj);
+                herostat.Shot(anim, BulletPrefab, ShotPos, ReloadGauge, bulletCase);
                 herostat.Reload(anim, ReloadGauge);
             }
             // 멘트 : 경우의 수가 더 없으니 else문으로 바꿔주세요
             else
             {
-                herostat.AIAttack(anim, BulletPrefab, ShotPos, ReloadGauge, bulletCase, MeleeAtObj);
+                herostat.AIAttack(anim, BulletPrefab, ShotPos, ReloadGauge, bulletCase);
             }
 
             if (herodata.skillcurTime <= 0 || herodata.second_skillcurTime <= 0)

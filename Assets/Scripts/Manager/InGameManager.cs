@@ -939,70 +939,66 @@ public class InGameManager : MonoBehaviour
                     Value = ((int)UpgradeStat[i]).ToString();
                     Num = ((int)UpgradeStat[i]);
                     break;
-                case 4: // 근접데미지 +3
+                case 4: // 폭발력 +3
                     Value = ((int)UpgradeStat[i]).ToString();
                     Num = ((int)UpgradeStat[i]);
                     break;
-                case 5: // 폭발력 +3
+                case 5: // 스킬력 +3
                     Value = ((int)UpgradeStat[i]).ToString();
                     Num = ((int)UpgradeStat[i]);
                     break;
-                case 6: // 스킬력 +3
+                case 6: // 기술력 +3
                     Value = ((int)UpgradeStat[i]).ToString();
                     Num = ((int)UpgradeStat[i]);
                     break;
-                case 7: // 기술력 +3
+                case 7: // 탄약 +3
                     Value = ((int)UpgradeStat[i]).ToString();
                     Num = ((int)UpgradeStat[i]);
                     break;
-                case 8: // 탄약 +3
-                    Value = ((int)UpgradeStat[i]).ToString();
-                    Num = ((int)UpgradeStat[i]);
-                    break;
-                case 9: // 공격속도 +3%
+                case 8: // 공격속도 +3%
                     float AtSp = Mathf.Floor(UpgradeStat[i] * 10) / 10;
                     Value = AtSp.ToString() + "%";
                     Num = AtSp;
                     break;
-                case 10: // 이동속도 +3%
+                case 9: // 이동속도 +3%
                     float MoveSp = Mathf.Floor(UpgradeStat[i] * 10) / 10;
                     Value = MoveSp.ToString() + "%";
                     Num = MoveSp;
                     break;
-                case 11: // 재장전 속도 +3%
+                case 10: // 재장전 속도 +3%
                     float Reload = Mathf.Floor(UpgradeStat[i] * 10) / 10;
                     Value = Reload.ToString() + "%";
                     Num = Reload;
                     break;
-                case 12: // 스킬쿨타임 +3%
+                case 11: // 스킬쿨타임 +3%
                     float SkillCooltime = Mathf.Floor(UpgradeStat[i] * 10) / 10;
                     Value = SkillCooltime.ToString() + "%";
                     Num = SkillCooltime;
                     break;
-                case 13: // 경험치 획득량 +3
+                case 12: // 경험치 획득량 +3
                     Value = ((int)UpgradeStat[i]).ToString();
                     Num = ((int)UpgradeStat[i]);
                     break;
-                case 14: //방어력 +3
+                case 13: //방어력 +3
                     Value = ((int)UpgradeStat[i]).ToString();
                     Num = ((int)UpgradeStat[i]);
                     break;
-                case 15: // 치명타 +3%
+                case 14: // 치명타 +3%
                     float Critical = Mathf.Floor(UpgradeStat[i] * 10) / 10;
                     Value = Critical.ToString() + "%";
                     Num = Critical;
                     break;
-                case 16: // 명중률 +3%
+                case 15: // 명중률 +3%
                     float Accuracy = Mathf.Floor(UpgradeStat[i] * 10) / 10;
                     Value = Accuracy.ToString() + "%";
                     Num = Accuracy;
                     break;
-                case 17: // 범위 +3%
+                case 16: // 범위 +3%
                     float Range = Mathf.Floor(UpgradeStat[i] * 10) / 10;
                     Value = Range.ToString() + "%";
                     Num = Range;
                     break;
-                case 18: // 회피율 +3%
+                case 17: // 회피율 +3%
                     float Evasion = Mathf.Floor(UpgradeStat[i] * 10) / 10;
                     Value = Evasion.ToString() + "%";
                     Num = Evasion;
@@ -1235,12 +1231,6 @@ public class InGameManager : MonoBehaviour
                 break;
             case 18:
                 print("18");
-                // 근접공격력 증가
-                UpgradeStat[4] += 5;
-                Playerstat.meleeAt += 5;
-                break;
-            case 19:
-                print("19");
                 // 재장전시간 감소
                 UpgradeStat[11] += 5;
                 Playerstat.reloadTime *= 0.95f;

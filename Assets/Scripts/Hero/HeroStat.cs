@@ -21,7 +21,6 @@ public abstract class HeroStat : MonoBehaviour
     [HideInInspector] public GameObject enemy;
     [HideInInspector] public float shortDis;
 
-    public bool isMelee = false; //근접공격상태
     public bool isReload = false; //장전상태
     public bool isDodge = false; //구르기상태
     public bool isinvincible = false; //무적상태
@@ -49,7 +48,7 @@ public abstract class HeroStat : MonoBehaviour
 
         anim.SetBool("Run", moveVec != Vector3.zero);
     }
-    public virtual void AIAttack(Animator anim, GameObject BulletPrefab, Transform[] ShotPos, GameObject ReloadGauge, GameObject bulletCase, GameObject MeleeAtObj)
+    public virtual void AIAttack(Animator anim, GameObject BulletPrefab, Transform[] ShotPos, GameObject ReloadGauge, GameObject bulletCase)
     {
         herodata.attackcoolTime -= Time.deltaTime;
         FoundObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
@@ -89,7 +88,7 @@ public abstract class HeroStat : MonoBehaviour
                     herodata.attackcoolTime = herodata.attackSp;
                 }
             }
-            else if (!isReload && !isMelee)
+            else if (!isReload)
             {
                 StartCoroutine(ReloadCoroutine(anim, ReloadGauge));
             }
@@ -111,51 +110,25 @@ public abstract class HeroStat : MonoBehaviour
         }
     }
     // 멘트 : 가능한 함수의 매개변수는 4개 이하가 적당합니다.
-    public virtual void Shot(Animator anim, GameObject BulletPrefab, Transform[] ShotPos, GameObject ReloadGauge, GameObject bulletCase, GameObject MeleeAtObj)
+    public virtual void Shot(Animator anim, GameObject BulletPrefab, Transform[] ShotPos, GameObject ReloadGauge, GameObject bulletCase)
     {
-        //근접공격
-        herodata.meleeAtcurTime -= Time.deltaTime;
-        if (herodata.meleeAtcurTime <= 0 && !isMelee && !isReload)
-        {
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                isMelee = true;
-                anim.SetBool("MeleeAt", true);
-                StartCoroutine(MeleeAt(MeleeAtObj, anim));
-            }
-        }
-
-
         herodata.attackcoolTime -= Time.deltaTime;
 
         if (herodata.curbulletCount > 0)
         {
             if (herodata.attackcoolTime <= 0)
             {
-                if (Input.GetMouseButton(0) && !isReload && !isMelee)
+                if (Input.GetMouseButton(0) && !isReload )
                 {
                     anim.SetTrigger("Shot");
                     ShotMode(BulletPrefab, ShotPos);
                 }
             }
         }
-        else if (!isReload && !isMelee)
+        else if (!isReload)
         {
             StartCoroutine(ReloadCoroutine(anim, ReloadGauge));
         }
-    }
-    IEnumerator MeleeAt(GameObject MeleeAtObj, Animator anim)
-    {
-        yield return new WaitForSeconds(0.2f);
-        MeleeAtObj.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
-        isMelee = true;
-        anim.SetBool("MeleeAt", false);
-        MeleeAtObj.SetActive(false);
-        herodata.meleeAtcurTime = herodata.meleeAtMaxTime;
-        yield return new WaitForSeconds(0.2f);
-        isMelee = false;
-
     }
     public void ShotMode(GameObject BulletPrefab, Transform[] ShotPos)
     {
@@ -312,7 +285,6 @@ public abstract class HeroStat : MonoBehaviour
                 herodata.damage += 1; //공격력
                 herodata.skillDamage += 1; //스킬데미지
                 herodata.bombDamage += 1; // 폭발데미지
-                herodata.meleeAt *= 1.03f; //근접공격력
                 herodata.science += 1; //기계화
                 herodata.accuracy *= 0.95f; //명중률
                 herodata.critical += 0.5f; //치명타

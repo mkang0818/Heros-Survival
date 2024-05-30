@@ -52,8 +52,23 @@ public class VideoOption : MonoBehaviour
     }
     public void OkBtnClick()
     {
-        int width = 1920;
-        int height = 1080;
+        int isFull = PlayerPrefs.GetInt("isFull", 0);
+        int width;
+        int height;
+
+        if (isFull == 0)
+        {
+            width = 1920;
+            height = 1080;
+            screenMode = FullScreenMode.FullScreenWindow;
+        }
+        else
+        {
+            width = Screen.currentResolution.width;
+            height = Screen.currentResolution.height;
+            screenMode = FullScreenMode.Windowed;
+        }
+
         Screen.SetResolution(width, height, screenMode);
     }
 }
