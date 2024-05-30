@@ -68,7 +68,7 @@ public class SteamManager : MonoBehaviour
         else
         {
             print("이미 잇음");
-            NickNameText.text = DataManager.Instance.nowPlayer.nickName + "님 환영합니다.";
+            NickNameText.text = DataManager.Instance.nowPlayer.nickName;
             Destroy(this.gameObject);
         }
     }
@@ -159,7 +159,7 @@ public class SteamManager : MonoBehaviour
     }
     public async void Register(string id, string pw)
     {
-        NickNameText.text = id + "님 환영합니다.";
+        NickNameText.text = id;
         await Task.Run(() =>
         {
             BackendLogin.Instance.CustomSignUp(id, pw); // [추가] 뒤끝 회원가입 함수
@@ -170,7 +170,7 @@ public class SteamManager : MonoBehaviour
     }
     async void Login(string id, string pw)
     {
-        NickNameText.text = id + "님 환영합니다.";
+        NickNameText.text = id;
         await Task.Run(() =>
         {
             BackendLogin.Instance.CustomLogin(id, pw); // 뒤끝 로그인 함수
