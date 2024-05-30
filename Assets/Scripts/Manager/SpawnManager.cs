@@ -45,24 +45,10 @@ public class SpawnManager : MonoBehaviour
             monster.transform.position = SpawnEfxPos;
 
             monster.GetComponent<EnemyController>().target = this.target;
+            monster.GetComponent<EnemyController>().SkillBulletTime = 3;
             monster.GetComponent<EnemyController>().levelNum = Stage;
             if (IsBomb) monster.GetComponent<EnemyController>().isBomb = true;
             yield return new WaitForSeconds(level / 2);
         }
     }
-    /*void EmyType(GameObject EmyObj)
-    {
-        switch (EnemyText)
-        {
-            case "Emy2":
-                EmyObj.GetComponent<EmyLv2>().StartPattern();
-                break;
-            case "Emy3":
-                EmyObj.GetComponent<EmyLv3>().StartPattern();
-                break;
-            case "Emy4":
-                EmyObj.GetComponent<EmyLv4>().StartPattern();
-                break;
-        }
-    }*/
 }

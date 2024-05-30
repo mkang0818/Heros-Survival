@@ -350,19 +350,19 @@ public class InGameManager : MonoBehaviour
     {
         if (InGameUIGroup.InRankModeUI.BossStage && IsBossDead)
         {
-            print("랭크모드 시작");
+            //print("랭크모드 시작");
             OnRankModeUI();
         }
         else if (lvUpCount >= 0) //레벨업 ui on
         {
-            print("레벨업ui");
+            //print("레벨업ui");
             CurRerollMoney = MaxRerollMoney; // 스테이지에 맞는 리롤 재화 초기화
             if (InGameUIGroup.InLvUpUI.LvUpSlotArr != null) for (int i = 0; i < InGameUIGroup.InLvUpUI.LvUpSlotArr.Length; i++) Destroy(InGameUIGroup.InLvUpUI.LvUpSlotArr[i]);
 
             for (int i = 0; i < LvUpItemNum.Length; i++)
             {
                 //print(i);
-                LvUpItemNum[i] = Random.Range(0, 20);
+                LvUpItemNum[i] = Random.Range(0, InGameUIGroup.InLvUpUI.LvUpStat.Length);
                 InGameUIGroup.InLvUpUI.LvUpSlotArr[i] = Instantiate(InGameUIGroup.InLvUpUI.LvUpSlotPrefab, InGameUIGroup.InLvUpUI.LvUpContentTransform[i]);
                 string statText = "<color=#00FF00>" + InGameUIGroup.InLvUpUI.LvUpStat[LvUpItemNum[i]] + "</color>";
                 InGameUIGroup.InLvUpUI.LvUpSlotArr[i].transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = statText;
@@ -787,7 +787,7 @@ public class InGameManager : MonoBehaviour
 
             for (int i = 0; i < LvUpItemNum.Length; i++)
             {
-                LvUpItemNum[i] = Random.Range(0, 20);
+                LvUpItemNum[i] = Random.Range(0, InGameUIGroup.InLvUpUI.LvUpStat.Length);
                 print(InGameUIGroup.InLvUpUI.LvUpContentTransform[i].position);
                 InGameUIGroup.InLvUpUI.LvUpSlotArr[i] = Instantiate(InGameUIGroup.InLvUpUI.LvUpSlotPrefab, InGameUIGroup.InLvUpUI.LvUpContentTransform[i]);
 
@@ -1122,115 +1122,115 @@ public class InGameManager : MonoBehaviour
         switch (LvUpStatNum)
         {
             case 0:
-                print("0");
+                //print("0");
                 //체력 증가
                 UpgradeStat[0] += 2;
                 Playerstat.maxHp += 2;
                 break;
             case 1:
                 //체력재생 증가
-                print("1");
+                //print("1");
                 UpgradeStat[1] += 3;
                 Playerstat.hpRecovery += 3;
                 break;
             case 2:
-                print("2");
+                //print("2");
                 //체력흡수 증가
                 UpgradeStat[2] += 5;
                 Playerstat.absorption *= 1.05f;
                 break;
             case 3:
-                print("3");
+                //print("3");
                 //탄약 증가
                 UpgradeStat[8] += 6;
                 Playerstat.maxbulletCount += 6;
                 break;
             case 4:
-                print("4");
+                //print("4");
                 //공격력 증가
                 UpgradeStat[3] += 2;
                 Playerstat.damage += 2;
                 break;
             case 5:
-                print("5");
+                //print("5");
                 //스킬력 증가
                 UpgradeStat[6] += 2;
                 Playerstat.skillDamage += 2;
                 break;
             case 6:
-                print("6");
+                //print("6");
                 //이동속도 증가
                 UpgradeStat[10] += 3;
                 Playerstat.moveSp *= 1.03f;
                 break;
             case 7:
-                print("7");
+                //print("7");
                 //공격속도 증가
                 UpgradeStat[9] += 3;
                 Playerstat.attackSp *= 0.97f;
                 break;
             case 8:
-                print("8");
+                //print("8");
                 //스킬쿨타임 감소
                 UpgradeStat[12] += 3;
                 Playerstat.skillcurTime *= 0.97f;
                 Playerstat.second_skillcurTime *= 0.97f;
                 break;
             case 9:
-                print("9");
+                //print("9");
                 //명중률 증가
                 UpgradeStat[16] += 5;
                 Playerstat.accuracy *= 0.95f;
                 break;
             case 10:
-                print("10");
+                //print("10");
                 //범위 증가
                 UpgradeStat[17] += 7;
                 Playerstat.range *= 1.07f;
                 break;
             case 11:
-                print("11");
+                //print("11");
                 //방어력 증가
                 UpgradeStat[14] += 3;
                 Playerstat.defense += 3;
                 break;
             case 12:
-                print("12");
+                //print("12");
                 //치명타 증가
                 UpgradeStat[15] += 5;
                 Playerstat.critical += 0.5f;
                 break;
             case 13:
-                print("13");
+                //print("13");
                 //회피율 증가
                 UpgradeStat[18] += 5;
                 Playerstat.evasion *= 1.05f;
                 break;
             case 14:
-                print("14");
+                //print("14");
                 //경험치 획득률 증가
                 UpgradeStat[13] += 3;
                 Playerstat.hasExp *= 1.03f;
                 break;
             case 15:
-                print("15");
+                //print("15");
                 //경험치 즉시 30% 획득
                 Playerstat.curExp = Playerstat.curExp + Playerstat.curExp * 0.3f;
                 break;
             case 16:
-                print("16");
+                //print("16");
                 // 기술 증가
                 UpgradeStat[7] += 3;
                 Playerstat.science += 3;
                 break;
             case 17:
-                print("17");
+                //print("17");
                 // 폭발력 증가
                 UpgradeStat[5] += 3;
                 Playerstat.bombDamage += 3;
                 break;
             case 18:
-                print("18");
+                //print("18");
                 // 재장전시간 감소
                 UpgradeStat[11] += 5;
                 Playerstat.reloadTime *= 0.95f;

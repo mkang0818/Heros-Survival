@@ -59,7 +59,7 @@ public class EnemyController : PoolAble
     public GameObject BombEffect;
     public GameObject DeadEffect;
     bool isPaused=true;
-    float SkillBulletTime = 3;
+    public float SkillBulletTime = 3;
 
     public bool IsBossDead = false;
     // Start is called before the first frame update
@@ -230,7 +230,7 @@ public class EnemyController : PoolAble
         {
             SkillBulletTime += Time.deltaTime;
 
-            if (SkillBulletTime >= 3f)
+            if (SkillBulletTime >= 2f)
             {
                 if (col.gameObject.GetComponent<BulletController>() != null) col.gameObject.GetComponent<BulletController>().BulletcurHP -= 1;
 

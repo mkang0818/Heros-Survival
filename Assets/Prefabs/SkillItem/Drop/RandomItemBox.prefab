@@ -151,8 +151,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.84288, z: 1}
-  m_Center: {x: 0, y: 0.58216405, z: 0}
+  m_Size: {x: 1, y: 1.936968, z: 1}
+  m_Center: {x: -0, y: 0.629208, z: -0}
 --- !u!54 &6565898985200223353
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -183,10 +183,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curHP: 0
   target: {fileID: 0}
-  items:
-  - {fileID: 6816406262456432491, guid: 017d2ebf65462e448add8ad23f7f7419, type: 3}
-  - {fileID: 4071751469577258315, guid: dddb5430e6d0f864882e0e1a11db19a0, type: 3}
-  - {fileID: 2879136404730091523, guid: 7a114b71e15ef064996d445ca4d29b3f, type: 3}
   CH4hitEffect: {fileID: 879681129677348344, guid: c9d70ff84fbf98a4ea1856e412bd68f5,
     type: 3}
   CoinPer: 10

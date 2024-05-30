@@ -15,7 +15,24 @@ public class DropLightController : PoolAble
     void DropObj()
     {
         var Drop = PoolingManager.instance.GetGo(DropText);
-        Drop.layer = 7;
+
+        switch (DropText)
+        {
+            case "Coin":
+                Drop.layer = 7;
+                Drop.gameObject.tag = "Drop";
+                break;
+            case "Diamond":
+                Drop.layer = 8;
+                Drop.gameObject.tag = "Drop";
+                break;
+            case "Health":
+                Drop.layer = 9;
+                Drop.gameObject.tag = "Drop";
+                break;
+        }
+
+
         Drop.GetComponent<DropController>().isFollow = false;
         Drop.transform.position = transform.position;
         Drop.GetComponent<DropController>().target = target;
