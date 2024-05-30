@@ -278,7 +278,7 @@ public class EnemyController : PoolAble
                         print("플레이어 체력감소 : " + EmyDamage);
                         if(EmyDamage > 0) col.GetComponent<PlayerController>().herodata.CurHp -= EmyDamage;
 
-                        DamageHeelText("DamageText", EmyDamage);
+                        DamageHeelText("EmyDamageText", EmyDamage);
                         AttackCurTime = AttackMaxTime;
                     }
                     else

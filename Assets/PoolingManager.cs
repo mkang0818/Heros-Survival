@@ -107,7 +107,7 @@ public class PoolingManager : MonoBehaviour
             Debug.LogFormat("{0} 오브젝트풀에 등록되지 않은 오브젝트입니다.", goName);
             return null;
         }
-
+        print(objectName);
         return ojbectPoolDic[goName].Get();
     }
 }

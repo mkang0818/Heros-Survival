@@ -46,8 +46,8 @@ public class ItemManager : MonoBehaviour
     }
     void ItemInit()
     {
-        isHeelTurret = true;
-        HeelTurretCount = 1;
+        isHeelTurret = false;
+        HeelTurretCount = 0;
 
 
         isDefaultTurret = false;
@@ -75,7 +75,7 @@ public class ItemManager : MonoBehaviour
     public enum StatType
     {
         MaxHp, CurHp, HpRecovery, MaxbulletCount, ReloadTime, AttackSp, MoveSp, Damage, SkillDamage, BombDamage, Accuracy, Critical, Absorption,
-        Defense, Evasion, HasExp, Science, Range, DiamondPer, skillCoolTime, MeleeAt, BulletcurHP,  MapScale, RandomBoxMaxCoolTime
+        Defense, Evasion, HasExp, Science, Range, DiamondPer, skillCoolTime, BulletcurHP,  MapScale, RandomBoxMaxCoolTime
                             , BasicTurret, HeelTurret, BombTurret, SlowTurret, EmyBomb, MultiBullet, SpinBullet, LandMine  // InstItem
                           , LvUp, FirstRerollFree, RerollSale, ItemSale, RandomBoxHPItem, RandomBoxCoinPerItem, TenPerHasMoney, randomItem, Reborn  //System Item
     }
@@ -143,7 +143,7 @@ public class ItemManager : MonoBehaviour
             new StatData(ItemType.StatItem, StatType.AttackSp, 1.03f, -1)
         }),
         // Item 8
-        new Item(new StatData[]{ new StatData(ItemType.StatItem, StatType.MeleeAt, 10, 1) }),
+        new Item(new StatData[]{ new StatData(ItemType.StatItem, StatType.AttackSp, 0.94f, 1) }),
         
         // Item 9
         new Item(new StatData[]{
@@ -214,7 +214,7 @@ public class ItemManager : MonoBehaviour
         // Item 21
         new Item(new StatData[]{
             new StatData(ItemType.StatItem, StatType.SkillDamage, 2, 1),
-            new StatData(ItemType.StatItem, StatType.MeleeAt, 7, 1),
+            new StatData(ItemType.StatItem, StatType.MoveSp, 1.02f, 1),
             new StatData(ItemType.StatItem, StatType.AttackSp, 1.02f, -1)
         }),
         
@@ -332,7 +332,7 @@ public class ItemManager : MonoBehaviour
             new StatData(ItemType.StatItem, StatType.Accuracy, 0.9f, 1),
             new StatData(ItemType.StatItem, StatType.Critical, 1.07f, 1),
             new StatData(ItemType.StatItem, StatType.Damage, 2, 1),
-            new StatData(ItemType.StatItem, StatType.MeleeAt, -3, -1),
+            new StatData(ItemType.StatItem, StatType.AttackSp, 1.02f, -1),
             new StatData(ItemType.StatItem, StatType.ReloadTime, 1.05f, -1)
         }),
         // Item 42
@@ -823,18 +823,6 @@ public class ItemManager : MonoBehaviour
                             ItemInfo = "Absorption";
                             ItemText(newInfo[i], item.statDatas[i].statValue, ItemInfo, item.statDatas[i].PlusMinus);
                             break;
-                        case StatType.MeleeAt:
-                            if (item.statDatas[i].PlusMinus > 0)
-                            {
-                                StatValueTextObj.GetComponent<TextMeshProUGUI>().text = "<color=green>" + "+" + (int)(item.statDatas[i].statValue) + "</color>";
-                                InfoTextObj.GetComponent<LocalizeScript>().textKey = "NearAttack";
-                            }
-                            else
-                            {
-                                StatValueTextObj.GetComponent<TextMeshProUGUI>().text = "<color=red>" + (int)(item.statDatas[i].statValue) + "</color>";
-                                InfoTextObj.GetComponent<LocalizeScript>().textKey = "NearAttack";
-                            }
-                            break;
                         case StatType.BulletcurHP:
                             InfoTextObj.GetComponent<LocalizeScript>().textKey = "Bullet Penetration +1";
                             break;
@@ -958,11 +946,6 @@ public class ItemManager : MonoBehaviour
                                 print("전" + Player.herodata.damage);
                                 ingameManager.UpgradeStat[3] += item.statDatas[i].statValue;
                                 Player.herodata.damage += item.statDatas[i].statValue;
-                                break;
-                            case StatType.MeleeAt:
-                                print("MeleeAt up");
-                                ingameManager.UpgradeStat[4] += item.statDatas[i].statValue;
-                                Player.herodata.meleeAt += item.statDatas[i].statValue;
                                 break;
                             case StatType.BombDamage:
                                 print("전" + Player.herodata.bombDamage);

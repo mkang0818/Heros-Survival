@@ -297,14 +297,14 @@ public class PlayerController : MonoBehaviour
         {
             float damage = col.GetComponent<BossFallBulletController>().damage;
             herodata.CurHp -= damage;
-            DamageHeelText("DamageText", damage);
+            DamageHeelText("EmyDamageText", damage);
             print("³«ÇÏÃÑ¾Ë" + damage);
         }
         else if (col.gameObject.CompareTag("BossSpinBullet"))
         {
             float damage = col.GetComponent<BossSpinBulletController>().damage;
             herodata.CurHp -= damage;
-            DamageHeelText("DamageText", damage);
+            DamageHeelText("EmyDamageText", damage);
             print("½ºÇÉÃÑ¾Ë" + damage);
         }
 
@@ -374,7 +374,7 @@ public class PlayerController : MonoBehaviour
                 print("ºÒ");
                 float Damage = col.GetComponent<BossFireController>().damage;
                 herodata.CurHp -= Damage;
-                DamageHeelText("DamageText", Damage);
+                DamageHeelText("EmyDamageText", Damage);
                 print("º¸½º ºÒ²Éµ¥¹ÌÁö" + Damage);
             }
         }
@@ -445,7 +445,7 @@ public class PlayerController : MonoBehaviour
         {
             damageEffect.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = ((int)Value).ToString();
         }
-        else if (ObjText == "DamageText")
+        else if (ObjText == "EmyDamageText")
         {
             damageEffect.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "-" + ((int)Value).ToString();
         }

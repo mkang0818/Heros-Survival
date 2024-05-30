@@ -29,6 +29,8 @@ public class SteamManager : MonoBehaviour
     public static SteamManager instance = null;
 
     string idNickName = "";
+
+    public GameObject NickObj;
     public TextMeshProUGUI NickNameText;
     public int IsLogin = 0;
 
@@ -68,7 +70,9 @@ public class SteamManager : MonoBehaviour
         else
         {
             print("이미 잇음");
-            NickNameText.text = DataManager.Instance.nowPlayer.nickName;
+
+            if (NickObj!=null) NickObj.SetActive(false);
+            //NickNameText.text = DataManager.Instance.nowPlayer.nickName;
             Destroy(this.gameObject);
         }
     }
@@ -159,7 +163,8 @@ public class SteamManager : MonoBehaviour
     }
     public async void Register(string id, string pw)
     {
-        NickNameText.text = id;
+        NickNameText.text = id; 
+        StartCoroutine(OffNickName());
         await Task.Run(() =>
         {
             BackendLogin.Instance.CustomSignUp(id, pw); // [추가] 뒤끝 회원가입 함수
@@ -171,10 +176,16 @@ public class SteamManager : MonoBehaviour
     async void Login(string id, string pw)
     {
         NickNameText.text = id;
+        StartCoroutine(OffNickName());
         await Task.Run(() =>
         {
             BackendLogin.Instance.CustomLogin(id, pw); // 뒤끝 로그인 함수
         });
+    }
+    IEnumerator OffNickName()
+    {
+        yield return new WaitForSeconds(3);
+        if(NickObj!=null) NickObj.SetActive(false);
     }
     public async void Rank(int score, int charCode)
     {

@@ -46266,6 +46266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef4bffeda13d7a748973ff9204401c07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NickObj: {fileID: 861813869}
   NickNameText: {fileID: 861813871}
   IsLogin: 0
   CountryNum: 99
@@ -50204,8 +50205,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -949.4, y: -689.3}
-  m_SizeDelta: {x: 600, y: 50}
+  m_AnchoredPosition: {x: -795.8, y: -689.3}
+  m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &861813871
 MonoBehaviour:
@@ -50227,7 +50228,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: dsadsad
+  m_text: "\u3147\u3134\u3141\u3147\u3141\u3134"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6df5fda7e0538bd4ba3f33b24b2e04fb, type: 2}
   m_sharedMaterial: {fileID: 7145820694894792384, guid: 6df5fda7e0538bd4ba3f33b24b2e04fb,
@@ -58341,8 +58342,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 318.8, y: -25.000015}
-  m_SizeDelta: {x: 600, y: 50}
+  m_AnchoredPosition: {x: 142.21, y: -25.000015}
+  m_SizeDelta: {x: 250, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1039897383
 MonoBehaviour:
@@ -58385,7 +58386,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Welcome
+  m_text: "\uB2D8 \uD658\uC601\uD569\uB2C8\uB2E4"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6df5fda7e0538bd4ba3f33b24b2e04fb, type: 2}
   m_sharedMaterial: {fileID: 7145820694894792384, guid: 6df5fda7e0538bd4ba3f33b24b2e04fb,
@@ -73594,7 +73595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ca4bbb557c6e74bb7eccc0fdc4bb17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curLangIndex: 1
+  curLangIndex: 0
   Langs:
   - lang: English
     langLocalize: English

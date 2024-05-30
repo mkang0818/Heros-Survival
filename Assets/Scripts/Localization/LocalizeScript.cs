@@ -152,6 +152,7 @@ public class LocalizeScript : MonoBehaviour
             string formattedText = "";
             int wordCount = 0;
 
+            int spaceCount = 0;
             foreach (string word in words)
             {
                 wordCount++;
@@ -163,9 +164,10 @@ public class LocalizeScript : MonoBehaviour
                     if (wordCount >= SplitNum)
                     {
                         formattedText += "\n";
+                        spaceCount++;
                         wordCount = 0;
                         formattedText += word + " ";
-                        LongStr = true;
+                        if(spaceCount>=2) LongStr = true;
                     }
                     else
                     {
@@ -178,8 +180,9 @@ public class LocalizeScript : MonoBehaviour
                     if (wordCount >= SplitNum)
                     {
                         formattedText += "\n";
+                        spaceCount++;
                         wordCount = 0;
-                        LongStr = true;
+                        if (spaceCount >= 2) LongStr = true;
                     }
                 }
             }
@@ -189,7 +192,7 @@ public class LocalizeScript : MonoBehaviour
                 RectTransform parentRectTransform = transform.parent.GetComponent<RectTransform>();
 
                 // 부모 오브젝트의 높이(세로 크기)를 2배로 늘리기
-                parentRectTransform.sizeDelta = new Vector2(parentRectTransform.sizeDelta.x, parentRectTransform.sizeDelta.y * 2f);
+                parentRectTransform.sizeDelta = new Vector2(parentRectTransform.sizeDelta.x, parentRectTransform.sizeDelta.y * 3f);
                 print(transform.parent);
             }
             return formattedText.Trim();
