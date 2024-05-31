@@ -64,8 +64,8 @@ public class VideoOption : MonoBehaviour
         }
         else
         {
-            width = Screen.currentResolution.width;
-            height = Screen.currentResolution.height;
+            width = 1280;
+            height = 720;
             screenMode = FullScreenMode.Windowed;
         }
 

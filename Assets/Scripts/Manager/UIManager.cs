@@ -264,7 +264,7 @@ public class UIManager : MonoBehaviour
                 info.AppendLine();
                 //Debug.Log(info);
                 MainUIGroup.Rank.myCharImg.sprite = MainUIGroup.Rank.CharFaceImg[int.Parse(CharNum) - 1];
-                MainUIGroup.Rank.MyRankCountryImg.sprite = MainUIGroup.Rank.CountryIcon[int.Parse(CharNum) - 1];
+                MainUIGroup.Rank.MyRankCountryImg.sprite = MainUIGroup.Rank.CountryIcon[SteamManager.instance.CountryNum];
 
                 MainUIGroup.Rank.myRank.text = ((int)jsonData["rank"]).ToString();
                 MainUIGroup.Rank.myNickName.text = jsonData["nickname"].ToString();
@@ -317,7 +317,8 @@ public class UIManager : MonoBehaviour
             MainUIGroup.Rank.RankTopNickName[count].text = jsonData["nickname"].ToString();
             //print((int)jsonData["atk"]-1);
             MainUIGroup.Rank.RankTopCharImg[count].sprite = MainUIGroup.Rank.CharFaceImg[int.Parse(CharNum) - 1];
-            MainUIGroup.Rank.RankListCountryImg[count].sprite = MainUIGroup.Rank.CountryIcon[int.Parse(CharNum) - 1];
+
+            MainUIGroup.Rank.RankListCountryImg[count].sprite = MainUIGroup.Rank.CountryIcon[SteamManager.instance.CountryNum];
             count++; // ·©Å· ¼ö Áõ°¡
         }
     }

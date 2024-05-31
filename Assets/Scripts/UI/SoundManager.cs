@@ -43,8 +43,8 @@ public class SoundManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MusicVolume = PlayerPrefs.GetFloat("MusicSound", -1);
-        EffectVolume = PlayerPrefs.GetFloat("EffectSound", -1);
+        MusicVolume = PlayerPrefs.GetFloat("MusicSound", 1);
+        EffectVolume = PlayerPrefs.GetFloat("EffectSound", 1);
     }
     public void SoundPlay(string SoundName, AudioClip clip)
     {

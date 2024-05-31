@@ -120,9 +120,7 @@ public class SteamManager : MonoBehaviour
     }
     enum CountryName
     {
-        KR,
-        US,
-        JP,
+        BR, CN, CZ, DE, US, GB, ES,FR,GR,IN,IT,JP,KR,PL,PT,RO,RU,SE,TH,TR,TW
         // 필요한 만큼 추가 가능
     }
 
@@ -134,37 +132,129 @@ public class SteamManager : MonoBehaviour
         {
             switch (name)
             {
-                case CountryName.KR:
+                case CountryName.BR:
                     CountryNum = 1;
                     // 한국에 대한 처리
-                    Debug.Log("한국의 코드는 1입니다.");
+                    Debug.Log("브라질의 코드는 1입니다.");
                     break;
-                case CountryName.US:
+                case CountryName.CN:
                     CountryNum = 2;
                     // 미국에 대한 처리
                     Debug.Log("미국의 코드는 1입니다.");
                     break;
-                case CountryName.JP:
+                case CountryName.CZ:
                     CountryNum = 3;
                     // 일본에 대한 처리
                     Debug.Log("일본의 코드는 1입니다.");
                     break;
+                case CountryName.DE:
+                    CountryNum = 4;
+                    // 일본에 대한 처리
+                    Debug.Log("일본의 코드는 1입니다.");
+                    break;
+                case CountryName.US:
+                    CountryNum = 5;
+                    // 일본에 대한 처리
+                    Debug.Log("일본의 코드는 1입니다.");
+                    break;
+                case CountryName.GB:
+                    CountryNum = 6;
+                    // 일본에 대한 처리
+                    Debug.Log("일본의 코드는 1입니다.");
+                    break;
+                case CountryName.ES:
+                    CountryNum = 7;
+                    // 일본에 대한 처리
+                    Debug.Log("스페인의 코드는 7입니다.");
+                    break;
+                case CountryName.FR:
+                    CountryNum = 8;
+                    // 일본에 대한 처리
+                    Debug.Log("프랑스의 코드는 8입니다.");
+                    break;
+                case CountryName.GR:
+                    CountryNum = 9;
+                    // 일본에 대한 처리
+                    Debug.Log("그리스의 코드는 9입니다.");
+                    break;
+                case CountryName.IN:
+                    CountryNum = 10;
+                    // 일본에 대한 처리
+                    Debug.Log("인도의 코드는 10입니다.");
+                    break;
+                case CountryName.IT:
+                    CountryNum = 11;
+                    // 일본에 대한 처리
+                    Debug.Log("이탈리아의 코드는 11입니다.");
+                    break;
+                case CountryName.JP:
+                    CountryNum = 12;
+                    // 일본에 대한 처리
+                    Debug.Log("일본의 코드는 12입니다.");
+                    break;
+                case CountryName.KR:
+                    CountryNum = 13;
+                    // 대한민국에 대한 처리
+                    Debug.Log("대한민국의 코드는 13입니다.");
+                    break;
+                case CountryName.PL:
+                    CountryNum = 14;
+                    // 일본에 대한 처리
+                    Debug.Log("폴란드의 코드는 14입니다.");
+                    break;
+                case CountryName.PT:
+                    CountryNum = 15;
+                    // 일본에 대한 처리
+                    Debug.Log("포르투갈의 코드는 15입니다.");
+                    break;
+                case CountryName.RO:
+                    CountryNum = 16;
+                    // 일본에 대한 처리
+                    Debug.Log("루마니아의 코드는 16입니다.");
+                    break;
+                case CountryName.RU:
+                    CountryNum = 17;
+                    // 일본에 대한 처리
+                    Debug.Log("러시아의 코드는 17입니다.");
+                    break;
+                case CountryName.SE:
+                    CountryNum = 18;
+                    // 일본에 대한 처리
+                    Debug.Log("스웨덴의 코드는 18입니다.");
+                    break;
+                case CountryName.TH:
+                    CountryNum = 19;
+                    // 일본에 대한 처리
+                    Debug.Log("태국의 코드는 19입니다.");
+                    break;
+                case CountryName.TR:
+                    CountryNum = 20;
+                    // 일본에 대한 처리
+                    Debug.Log("터키의 코드는 20입니다.");
+                    break;
+                case CountryName.TW:
+                    CountryNum = 21;
+                    // 일본에 대한 처리
+                    Debug.Log("타이완의 코드는 21입니다.");
+                    break;
                 // 필요한 만큼 추가 가능
                 default:
                     // 예외 처리 또는 기본 동작
+                    CountryNum = 0;
                     Debug.LogWarning("해당 국가 코드가 정의되지 않았습니다.");
                     break;
             }
         }
         else
         {
+            // 예외 처리
+            CountryNum = 0;
             Debug.LogError("올바른 국가 코드가 아닙니다.");
         }
     }
     public async void Register(string id, string pw)
     {
-        NickNameText.text = id; 
-        StartCoroutine(OffNickName());
+        NickNameText.text = id;
         await Task.Run(() =>
         {
             BackendLogin.Instance.CustomSignUp(id, pw); // [추가] 뒤끝 회원가입 함수
