@@ -45,6 +45,3 @@ MonoBehaviour:
   skillCurTime: 0
   Second_skillMaxTime: 8
   Second_skillCurTime: 0
-  MeleeAt: 15
-  MeleeAtMaxTime: 1
-  MeleeAtCurTime: 0

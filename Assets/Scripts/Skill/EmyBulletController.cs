@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class EmyBulletController : MonoBehaviour
 {
@@ -113,6 +114,7 @@ public class EmyBulletController : MonoBehaviour
             print("Àû °ø°Ý");
             SoundManager.Instance.SoundPlay("EmyBullet", AttackAudio);
             col.gameObject.GetComponent<PlayerController>().herodata.CurHp -= Damage;
+            DamageHeelText("EmyDamageText", Damage);
 
             GameObject hiteffect = Instantiate(hit, transform.position, Quaternion.identity);
             Destroy(hiteffect, 0.5f);
@@ -122,6 +124,20 @@ public class EmyBulletController : MonoBehaviour
         if (col.gameObject.CompareTag("EmyBullet") || col.gameObject.CompareTag("Enemy"))
         {
             return;
+        }
+    }
+    void DamageHeelText(string ObjText, float Value)
+    {
+        float randX = Random.Range(-1, 1);
+        float randZ = Random.Range(-1, 1);
+        Vector3 EffectPos = new Vector3(transform.position.x + randX, transform.position.y + 2, transform.position.z + randZ);
+        var damageEffect = PoolingManager.instance.GetGo(ObjText);
+        damageEffect.transform.position = EffectPos;
+
+        damageEffect.GetComponent<DamageText>().DamageTextOn();
+        if (ObjText == "EmyDamageText")
+        {
+            damageEffect.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "-" + ((int)Value).ToString();
         }
     }
 }

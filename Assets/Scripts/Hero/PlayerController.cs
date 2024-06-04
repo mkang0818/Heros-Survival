@@ -295,14 +295,18 @@ public class PlayerController : MonoBehaviour
         if (col.gameObject.CompareTag("BossFallBullet"))
         {
             float damage = col.GetComponent<BossFallBulletController>().damage;
-            herodata.CurHp -= damage;
+            //herodata.CurHp -= damage;
+            PlayerDamage(damage);
+
             DamageHeelText("EmyDamageText", damage);
             print("낙하총알" + damage);
         }
         else if (col.gameObject.CompareTag("BossSpinBullet"))
         {
             float damage = col.GetComponent<BossSpinBulletController>().damage;
-            herodata.CurHp -= damage;
+            //herodata.CurHp -= damage;
+            PlayerDamage(damage);
+
             DamageHeelText("EmyDamageText", damage);
             print("스핀총알" + damage);
         }
@@ -340,6 +344,37 @@ public class PlayerController : MonoBehaviour
             col.gameObject.GetComponent<DropController>().ReleaseObject();
         }
     }
+
+    void PlayerDamage(float damage)
+    {
+        bool isEvasion = RandomEvasion(herodata.evasion);
+
+        if (isEvasion)
+        {
+            print("회피!!");
+        }
+        else
+        {
+            if (!herostat.isinvincible)
+            {
+                float EmyDamage = (int)(damage - (herodata.defense / 100) * (int)(damage));
+                print("플레이어 체력감소 : " + EmyDamage);
+                if (EmyDamage > 0) herodata.CurHp -= EmyDamage;
+
+                DamageHeelText("EmyDamageText", EmyDamage);
+            }
+            else
+            {
+                print("무적");
+            }
+        }
+    }
+    bool RandomEvasion(float persent)
+    {
+        float randomValue = Random.value * 100;
+        return randomValue <= persent;
+    }
+
     private void OnTriggerStay(Collider col)
     {
         //SkillItem
@@ -372,7 +407,9 @@ public class PlayerController : MonoBehaviour
             {
                 print("불");
                 float Damage = col.GetComponent<BossFireController>().damage;
-                herodata.CurHp -= Damage;
+                //herodata.CurHp -= Damage;
+                PlayerDamage(Damage);
+
                 DamageHeelText("EmyDamageText", Damage);
                 print("보스 불꽃데미지" + Damage);
             }

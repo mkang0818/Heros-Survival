@@ -106,10 +106,10 @@ public class EmyLv3 : Enemy
             //print("돌진");
 
             Vector3 moveDir = transform.forward;
-            transform.position = Vector3.MoveTowards(transform.position, transform.position + moveDir, Time.deltaTime * 10);
+            transform.position = Vector3.MoveTowards(transform.position, transform.position + moveDir, Time.deltaTime * 6);
 
             // 돌진이 끝났을 때
-            if (Time.time - startTime >= 1f)
+            if (Time.time - startTime >= 0.8f)
             {
                 break; // 무한루프를 빠져나옴
             }

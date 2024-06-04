@@ -18,6 +18,7 @@ public class MainUI
     public GameObject BackGroundObj;
     public GameObject[] MainCharactorPrefab = new GameObject[14];
 
+    public GameObject HelpUI;
     public AudioSource MusicAudio;
     public Texture2D defaultImg; // 바꿀 커서 이미지
 }
@@ -172,6 +173,19 @@ public class UIManager : MonoBehaviour
     {
         ESCBack();
         MainTextUI();
+        HelpUIOnOff();
+    }
+    void HelpUIOnOff()
+    {
+        if (Input.GetKey(KeyCode.F1))
+        {
+            MainUIGroup.Main.HelpUI.SetActive(true);
+        }
+        //else if (Input.GetKeyUp(KeyCode.F1))
+        else
+        {
+            MainUIGroup.Main.HelpUI.SetActive(false);
+        }
     }
     void ESCBack()
     {
@@ -642,7 +656,7 @@ public class UIManager : MonoBehaviour
         print(DataManager.Instance.nowPlayer.Diamond);
         print(DataManager.Instance.nowPlayer.IsChar[SelectCharNum]);
 
-        if (DataManager.Instance.nowPlayer.Diamond <= MainUIGroup.data.CharPrice[SelectCharNum] && !DataManager.Instance.nowPlayer.IsChar[SelectCharNum])
+        if (DataManager.Instance.nowPlayer.Diamond >= MainUIGroup.data.CharPrice[SelectCharNum] && !DataManager.Instance.nowPlayer.IsChar[SelectCharNum])
         {
             print(SelectCharNum + "캐릭터 구매");
 

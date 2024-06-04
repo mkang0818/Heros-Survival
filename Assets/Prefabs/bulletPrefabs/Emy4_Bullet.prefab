@@ -9752,7 +9752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackAudio: {fileID: 8300000, guid: 8ecf4407e83530b41a7855aa68743cba, type: 3}
-  speed: 10
+  speed: 7
   hitOffset: 0.1
   UseFirePointRotation: 0
   rotationOffset: {x: 0, y: 0, z: 0}

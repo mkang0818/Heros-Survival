@@ -851,7 +851,7 @@ public class ItemManager : MonoBehaviour
                             InfoTextObj.GetComponent<LocalizeScript>().textKey = "Slow turret";
                             break;
                         case StatType.EmyBomb:
-                            InfoTextObj.GetComponent<LocalizeScript>().textKey = "Explodes when monster dies";
+                            InfoTextObj.GetComponent<LocalizeScript>().textKey = "50% Explodes When Monster Dies";
                             break;
                         case StatType.MultiBullet:
                             InfoTextObj.GetComponent<LocalizeScript>().textKey = "Bullets everywhere";

@@ -36,7 +36,8 @@ public abstract class Enemy : MonoBehaviour
             CoinObj.GetComponent<DropLightController>().CreateDropObj();
             target.GetComponent<PlayerController>().herodata.curExp += target.GetComponent<PlayerController>().herodata.hasExp;
 
-            if (isBomb) Instantiate(BombEffect,transform.position,Quaternion.identity);
+            int rand = Random.Range(0,100);
+            if (isBomb && rand>=50) Instantiate(BombEffect,transform.position,Quaternion.identity);
             GameManager.Instance.Score += emydata.emyCost;
 
             if (emydata.emyCode != 8)
@@ -49,11 +50,28 @@ public abstract class Enemy : MonoBehaviour
             }
         }
     }
-    public virtual void LevelUp()
+    public virtual void LevelUp(float levelNum)
     {
-        //print("레벨업");
-        emydata.emyMaxHP *= 1.2f;
-        emydata.emyCurHP *= 1.2f;
-        emydata.emyAttack *= 1.07f;
+        int EmyLevel = emydata.emyCode switch
+        {
+            1 => EmyLevel = 0,
+            2 => EmyLevel = 2,
+            3 => EmyLevel = 6,
+            4 => EmyLevel = 10,
+            5 => EmyLevel = 13,
+            6 => EmyLevel = 15,
+            7 => EmyLevel = 19,
+            8 => EmyLevel = 19,
+            _ => EmyLevel = 0
+        };
+        float dd = levelNum - (1 + EmyLevel);
+        //print(emydata.emyCode + "몬스터" + dd);
+        for (int i = 0; i < levelNum - (1 + EmyLevel); i++)
+        {
+            //print("레벨업");
+            emydata.emyMaxHP *= 1.07f;
+            emydata.emyCurHP *= 1.07f;
+            emydata.emyAttack *= 1.04f;
+        }
     }
 }

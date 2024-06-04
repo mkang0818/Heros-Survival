@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EmyCode: 5
   EmyCost: 5
-  EmyMaxHP: 2000
-  EmyCurHP: 2000
-  EmyAttack: 10
+  EmyMaxHP: 2500
+  EmyCurHP: 2500
+  EmyAttack: 14
   EmyMaxAttackSp: 0
   EmyCurAttackSp: 0
   EmyMoveSp: 1

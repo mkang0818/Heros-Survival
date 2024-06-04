@@ -41,7 +41,7 @@ public class EnemyController : PoolAble
     public Slider HpBar;
     public Image HpBarFillImg;
 
-    float AttackMaxTime = 0.7f;
+    float AttackMaxTime = 0.5f;
     float AttackCurTime = 0;
 
     float SkillATMaxTime = 0.2f;
@@ -71,13 +71,12 @@ public class EnemyController : PoolAble
     }
     public void InitEmy()
     {
-        for (int i = 0; i < levelNum - 1; i++) Emy.LevelUp();
-
         target = GameObject.FindGameObjectWithTag("Player");
         emydata = Instantiate(this.emydataPrefab);
         Emy.initSetting(emydata);
         Emy.Attack(target);
 
+        Emy.LevelUp(levelNum);
 
         agent = GetComponent<NavMeshAgent>();
         rigid = GetComponent<Rigidbody>();
@@ -117,6 +116,9 @@ public class EnemyController : PoolAble
     void UpdateHP()
     {
         HpBar.value = Mathf.Lerp(HpBar.value, (float)emydata.emyCurHP / (float)emydata.emyMaxHP, Time.deltaTime * 10);
+
+        //print(gameObject.name+emydata.emyMaxHP);
+        //print(gameObject.name + emydata.emyAttack);
     }
     void SlowTime()
     {

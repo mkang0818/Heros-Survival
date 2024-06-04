@@ -27,24 +27,6 @@ public class EmyLv5 : Enemy
 
         if (gameObject != null) StartCoroutine(Emy5FSM());
     }
-    public override void Dead(GameObject target, bool isBomb, GameObject BombEffect)
-    {
-        if (emydata.emyCurHP <= 0)
-        {
-            float DiamondPer = Random.Range(0, 100);
-            if (DiamondPer <= target.GetComponent<PlayerController>().herodata.diamondPer)
-            {
-                var DiaObj = PoolingManager.instance.GetGo("DiamondLight");
-                DiaObj.transform.position = transform.position;
-            }
-
-            if (gameObject != null) StartCoroutine(Dead());
-            var CoinObj = PoolingManager.instance.GetGo("CoinText");
-            CoinObj.transform.position = transform.position;
-            if (CoinObj.GetComponent<DropController>().target != null) CoinObj.GetComponent<DropController>().target = target;
-            if (isBomb) Instantiate(BombEffect, transform.position, Quaternion.identity);
-        }
-    }
     IEnumerator Dead()
     {
         Anim.SetTrigger("Dead");

@@ -537,6 +537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e84ac56681408f243b9b8b76dea2fefe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emydata: {fileID: 0}
   HPBar: {fileID: 5482741806689920133}
   randomBullet: {fileID: 3995925170779068658, guid: a3d20fb2215fc604488c25108bf63269,
     type: 3}
@@ -575,19 +576,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f0bcfaaf7ddef254c9f699324647996e, type: 3}
   - {fileID: 8300000, guid: 184e20fda8b783a448d490880e19d9e0, type: 3}
   - {fileID: 8300000, guid: dda03230b71e8e54291def6260fc230b, type: 3}
-  ArrPlayerMeleeAtAudio:
-  - {fileID: 8300000, guid: 864767965e0c9a546b274556317d8b9b, type: 3}
-  - {fileID: 8300000, guid: d11c6c6536decf942af31d7bf43145fc, type: 3}
-  - {fileID: 8300000, guid: ac12a088203750449be2f98d654f418c, type: 3}
-  - {fileID: 8300000, guid: 694853a7f86750a438405acb5166f095, type: 3}
-  - {fileID: 8300000, guid: 46e12c1d14d5c594690c316d45bfb9e4, type: 3}
-  - {fileID: 8300000, guid: 549fe6886c600914ca0d9bea83125200, type: 3}
-  - {fileID: 8300000, guid: ae41e65018e92fb46a6113871a11e1fa, type: 3}
-  - {fileID: 8300000, guid: 876612c00bf16654bbd072362e117754, type: 3}
   PlayerBombAudio:
   - {fileID: 8300000, guid: 7a4b16a0ab9225748a5a9d80337ab571, type: 3}
   ingameManager: {fileID: 0}
+  emydataPrefab: {fileID: 0}
+  emydata: {fileID: 0}
   Emy: {fileID: 7755652712795614076}
+  target: {fileID: 0}
   MoneyPrefab: {fileID: 4071751469577258315, guid: dddb5430e6d0f864882e0e1a11db19a0,
     type: 3}
   Diamond: {fileID: 2879136404730091523, guid: 7a114b71e15ef064996d445ca4d29b3f, type: 3}
@@ -602,16 +597,17 @@ MonoBehaviour:
     type: 3}
   EmyDamageEffect: {fileID: 1728986881204927453, guid: da15bbaf1362d9e458f30c1c7c12a46f,
     type: 3}
-  AbsorptionText: {fileID: 1728986881204927453, guid: f7375dedab5252d4b8a2dab4e2d8c097,
-    type: 3}
   HpBar: {fileID: 8400822787668049483}
   HpBarFillImg: {fileID: 3375730790162603653}
+  isCollided: 0
   ChildMesh: {fileID: 5789952137068644376}
   isDead: 0
   isBomb: 0
   BombEffect: {fileID: 4893767420844493718, guid: d86ed20c8ae6c48438f3af9fedf90cec,
     type: 3}
   DeadEffect: {fileID: 0}
+  SkillBulletTime: 3
+  IsBossDead: 0
 --- !u!195 &8574229401642708229
 NavMeshAgent:
   m_ObjectHideFlags: 0

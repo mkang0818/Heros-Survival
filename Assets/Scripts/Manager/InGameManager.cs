@@ -465,7 +465,7 @@ public class InGameManager : MonoBehaviour
     // 스테이지 시작 시 스폰오브젝트 활성화
     void Spawn()
     {
-        //print("현재 스테이지 : "+ StageNum);
+        print("현재 스테이지 : "+ StageNum);
         InGameUIGroup.InPlayUI.PlayUI.SetActive(true);
         //스테이지가 늘어날수록 낮은레벨 몬스터는 적게 높은레벨 몬스터는 많게
         if (StageNum >= 21)
@@ -550,7 +550,7 @@ public class InGameManager : MonoBehaviour
             InGameUIGroup.InData.SpawnObj[i].SetActive(true);
             InGameUIGroup.InData.SpawnObj[i].GetComponent<SpawnManager>().StartCoroutine("spawnMosnter");
             InGameUIGroup.InData.SpawnObj[i].GetComponent<SpawnManager>().target = player.gameObject;
-            InGameUIGroup.InData.SpawnObj[i].GetComponent<SpawnManager>().level *= 0.93f;
+            InGameUIGroup.InData.SpawnObj[i].GetComponent<SpawnManager>().level *= 1.07f;
         }
     }
     // 레벨업 버튼 기능
