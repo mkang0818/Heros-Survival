@@ -69,9 +69,9 @@ public abstract class Enemy : MonoBehaviour
         for (int i = 0; i < levelNum - (1 + EmyLevel); i++)
         {
             //print("·¹º§¾÷");
-            emydata.emyMaxHP *= 1.07f;
-            emydata.emyCurHP *= 1.07f;
-            emydata.emyAttack *= 1.04f;
+            emydata.emyMaxHP *= 1.05f;
+            emydata.emyCurHP *= 1.05f;
+            emydata.emyAttack *= 1.03f;
         }
     }
 }

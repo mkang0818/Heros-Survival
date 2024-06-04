@@ -550,7 +550,7 @@ public class InGameManager : MonoBehaviour
             InGameUIGroup.InData.SpawnObj[i].SetActive(true);
             InGameUIGroup.InData.SpawnObj[i].GetComponent<SpawnManager>().StartCoroutine("spawnMosnter");
             InGameUIGroup.InData.SpawnObj[i].GetComponent<SpawnManager>().target = player.gameObject;
-            InGameUIGroup.InData.SpawnObj[i].GetComponent<SpawnManager>().level *= 1.07f;
+            InGameUIGroup.InData.SpawnObj[i].GetComponent<SpawnManager>().level *= 1.02f;
         }
     }
     // 레벨업 버튼 기능
