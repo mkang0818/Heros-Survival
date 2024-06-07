@@ -949,74 +949,74 @@ public class ItemManager : MonoBehaviour
                                 break;
                             case StatType.BombDamage:
                                 print("전" + Player.herodata.bombDamage);
-                                ingameManager.UpgradeStat[5] += item.statDatas[i].statValue;
+                                ingameManager.UpgradeStat[4] += item.statDatas[i].statValue;
                                 Player.herodata.bombDamage += item.statDatas[i].statValue;
                                 break;
                             case StatType.SkillDamage:
                                 print("전" + Player.herodata.skillDamage);
-                                ingameManager.UpgradeStat[6] += item.statDatas[i].statValue;
+                                ingameManager.UpgradeStat[5] += item.statDatas[i].statValue;
                                 Player.herodata.skillDamage += item.statDatas[i].statValue;
                                 break;
                             case StatType.Science:
                                 print("전" + Player.herodata.science);
-                                ingameManager.UpgradeStat[7] += item.statDatas[i].statValue;
+                                ingameManager.UpgradeStat[6] += item.statDatas[i].statValue;
                                 Player.herodata.science += item.statDatas[i].statValue;
                                 break;
                             case StatType.MaxbulletCount:
                                 print("MaxbulletCount up");
-                                ingameManager.UpgradeStat[8] += item.statDatas[i].statValue;
+                                ingameManager.UpgradeStat[7] += item.statDatas[i].statValue;
                                 Player.herodata.maxbulletCount += (int)item.statDatas[i].statValue;
                                 break;
                             case StatType.AttackSp:
                                 print("전" + Player.herodata.attackSp);
-                                ingameManager.UpgradeStat[9] += 100 - (int)(item.statDatas[i].statValue * 100);
+                                ingameManager.UpgradeStat[8] += 100 - (int)(item.statDatas[i].statValue * 100);
                                 Player.herodata.attackSp *= item.statDatas[i].statValue;
                                 break;
                             case StatType.MoveSp:
                                 print("전" + Player.herodata.moveSp);
-                                ingameManager.UpgradeStat[10] += (int)(item.statDatas[i].statValue * 100) - 100;
+                                ingameManager.UpgradeStat[9] += (int)(item.statDatas[i].statValue * 100) - 100;
                                 Player.herodata.moveSp *= item.statDatas[i].statValue;
                                 break;
                             case StatType.ReloadTime:
                                 print("전" + Player.herodata.reloadTime);
-                                ingameManager.UpgradeStat[11] += 100 - (int)(item.statDatas[i].statValue * 100);
+                                ingameManager.UpgradeStat[10] += 100 - (int)(item.statDatas[i].statValue * 100);
                                 Player.herodata.reloadTime *= item.statDatas[i].statValue;
                                 break;
                             case StatType.skillCoolTime:
                                 print("skillCoolTime up");
-                                ingameManager.UpgradeStat[12] += 100 - (int)(item.statDatas[i].statValue * 100);
+                                ingameManager.UpgradeStat[11] += 100 - (int)(item.statDatas[i].statValue * 100);
                                 Player.herodata.skillmaxTime *= item.statDatas[i].statValue;
                                 break;
                             case StatType.HasExp:
                                 print("전" + Player.herodata.hasExp);
-                                ingameManager.UpgradeStat[13] += (int)(item.statDatas[i].statValue * 100) - 100;
+                                ingameManager.UpgradeStat[12] += (int)(item.statDatas[i].statValue * 100) - 100;
                                 Player.herodata.hasExp *= item.statDatas[i].statValue;
                                 break;
                             case StatType.Defense:
                                 print("전" + Player.herodata.defense);
-                                ingameManager.UpgradeStat[14] += item.statDatas[i].statValue;
+                                ingameManager.UpgradeStat[13] += item.statDatas[i].statValue;
                                 Player.herodata.defense += item.statDatas[i].statValue;
                                 break;
                             case StatType.Critical:
                                 print("전" + Player.herodata.critical);
-                                ingameManager.UpgradeStat[15] += (int)(item.statDatas[i].statValue * 100) - 100;
+                                ingameManager.UpgradeStat[14] += (int)(item.statDatas[i].statValue * 100) - 100;
                                 Player.herodata.critical += item.statDatas[i].statValue;
                                 break;
                             case StatType.Accuracy:
                                 print("전" + Player.herodata.accuracy);
-                                ingameManager.UpgradeStat[16] += 100 - (int)(item.statDatas[i].statValue * 100);
+                                ingameManager.UpgradeStat[15] += 100 - (int)(item.statDatas[i].statValue * 100);
                                 Player.herodata.accuracy *= item.statDatas[i].statValue;
                                 break;
                             case StatType.Range:
                                 print("Range up");
                                 print((int)(item.statDatas[i].statValue * 100)); //95
                                 print((int)(item.statDatas[i].statValue * 100) - 100); //-5
-                                ingameManager.UpgradeStat[17] += (int)(item.statDatas[i].statValue * 100) - 100;
+                                ingameManager.UpgradeStat[16] += (int)(item.statDatas[i].statValue * 100) - 100;
                                 Player.herodata.range *= item.statDatas[i].statValue;
                                 break;
                             case StatType.Evasion:
                                 print("전" + Player.herodata.evasion);
-                                ingameManager.UpgradeStat[18] += (int)(item.statDatas[i].statValue * 100) - 100;
+                                ingameManager.UpgradeStat[17] += (int)(item.statDatas[i].statValue * 100) - 100;
                                 Player.herodata.evasion *= item.statDatas[i].statValue;
                                 break;
                             case StatType.DiamondPer:

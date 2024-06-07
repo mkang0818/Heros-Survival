@@ -21,8 +21,8 @@ MonoBehaviour:
   CurHp: 10
   HpRecovery: 1
   Absorption: 0.13
-  MaxbulletCount: 20
-  CurbulletCount: 20
+  MaxbulletCount: 0
+  CurbulletCount: 0
   ReloadTime: 1.5
   ReloadCoolTime: 1.5
   BulletcurHP: 1
@@ -45,6 +45,3 @@ MonoBehaviour:
   skillCurTime: 0
   Second_skillMaxTime: 12
   Second_skillCurTime: 0
-  MeleeAt: 15
-  MeleeAtMaxTime: 1
-  MeleeAtCurTime: 0

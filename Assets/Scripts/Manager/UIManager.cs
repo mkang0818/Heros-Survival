@@ -312,7 +312,17 @@ public class UIManager : MonoBehaviour
             StringBuilder info = new StringBuilder();
 
             info.AppendLine("순위 : " + jsonData["rank"].ToString());
-            info.AppendLine("닉네임 : " + jsonData["nickname"].ToString());
+
+            if (jsonData.Keys.Contains("nickname"))
+            {
+                info.AppendLine("닉네임 : " + jsonData["nickname"].ToString());
+            }
+            else
+            {
+                info.AppendLine("닉네임 : (닉네임 없음)");
+            }
+
+            //info.AppendLine("닉네임 : " + jsonData["nickname"].ToString());
             info.AppendLine("점수 : " + jsonData["score"].ToString());
             info.AppendLine("gamerInDate : " + jsonData["gamerInDate"].ToString());
             info.AppendLine("정렬번호 : " + jsonData["index"].ToString());
@@ -327,12 +337,21 @@ public class UIManager : MonoBehaviour
             info.AppendLine();
 
             Debug.Log(info);
+
+
+            if (jsonData.Keys.Contains("nickname"))
+            {
+                MainUIGroup.Rank.RankTopNickName[count].text = jsonData["nickname"].ToString();
+            }
+            else
+            {
+                info.AppendLine("닉네임 : (닉네임 없음)");
+            }
             MainUIGroup.Rank.RankTopScore[count].text = jsonData["score"].ToString();
-            MainUIGroup.Rank.RankTopNickName[count].text = jsonData["nickname"].ToString();
             //print((int)jsonData["atk"]-1);
             MainUIGroup.Rank.RankTopCharImg[count].sprite = MainUIGroup.Rank.CharFaceImg[int.Parse(CharNum) - 1];
 
-            MainUIGroup.Rank.RankListCountryImg[count].sprite = MainUIGroup.Rank.CountryIcon[SteamManager.instance.CountryNum];
+            MainUIGroup.Rank.RankListCountryImg[count].sprite = MainUIGroup.Rank.CountryIcon[int.Parse(CountryNum)];
             count++; // 랭킹 수 증가
         }
     }
@@ -457,7 +476,7 @@ public class UIManager : MonoBehaviour
 
         var CharGradeNum = DataManager.Instance.nowPlayer.CharGrade[charnum] - 1;
         MainUIGroup.Upgrade.UpgradePerText.text = " : " + MainUIGroup.data.GradePer[CharGradeNum].ToString() + "%";
-        MainUIGroup.Upgrade.UpgradePriceText.text = " : $" + MainUIGroup.data.GradePrice[CharGradeNum].ToString();
+        MainUIGroup.Upgrade.UpgradePriceText.text = " :    x " + MainUIGroup.data.GradePrice[CharGradeNum].ToString();
     }
     //강화 버튼
     public void UpgradeBt()

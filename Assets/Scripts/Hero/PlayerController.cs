@@ -104,7 +104,6 @@ public class PlayerController : MonoBehaviour
 
             herodata.CharUpgrade = InGameManager.charUpgradeNum;
             herostat.UpgraderStat(DataManager.Instance.nowPlayer.CharGrade[herodata.CharCode - 1]);
-            //print(DataManager.DataInstance.nowPlayer.CharGrade[herodata.CharCode - 1] + "성");
 
         }
     }
@@ -127,7 +126,8 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-       // print("max" + herodata.maxHp);
+        if (herodata.CharCode == 4) herodata.curbulletCount = 0; herodata.maxbulletCount = 0;
+        // print("max" + herodata.maxHp);
         //print("cur" + herodata.CurHp);
         //print("Level" + herodata.Level);
         //print("curExp" + herodata.curExp);
@@ -275,10 +275,10 @@ public class PlayerController : MonoBehaviour
         {
             col.gameObject.GetComponent<TurretBulletController>().ReleaseObject();
             float Value;
-            if ((herodata.CurHp + (herodata.science / 2)) < herodata.maxHp)
+            if ((herodata.CurHp + (herodata.science / 4)) < herodata.maxHp)
             {
-                herodata.CurHp += herodata.science / 2;
-                Value = herodata.science / 2;
+                herodata.CurHp += herodata.science / 4;
+                Value = herodata.science / 4;
 
                 print(Value + "만큼 회복");
             }

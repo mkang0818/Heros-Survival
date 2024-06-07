@@ -1142,7 +1142,7 @@ public class InGameManager : MonoBehaviour
             case 3:
                 //print("3");
                 //탄약 증가
-                UpgradeStat[8] += 6;
+                UpgradeStat[7] += 6;
                 Playerstat.maxbulletCount += 6;
                 break;
             case 4:
@@ -1154,62 +1154,62 @@ public class InGameManager : MonoBehaviour
             case 5:
                 //print("5");
                 //스킬력 증가
-                UpgradeStat[6] += 2;
+                UpgradeStat[5] += 2;
                 Playerstat.skillDamage += 2;
                 break;
             case 6:
                 //print("6");
                 //이동속도 증가
-                UpgradeStat[10] += 3;
+                UpgradeStat[9] += 3;
                 Playerstat.moveSp *= 1.03f;
                 break;
             case 7:
                 //print("7");
                 //공격속도 증가
-                UpgradeStat[9] += 3;
+                UpgradeStat[8] += 3;
                 Playerstat.attackSp *= 0.97f;
                 break;
             case 8:
                 //print("8");
                 //스킬쿨타임 감소
-                UpgradeStat[12] += 3;
+                UpgradeStat[11] += 3;
                 Playerstat.skillcurTime *= 0.97f;
                 Playerstat.second_skillcurTime *= 0.97f;
                 break;
             case 9:
                 //print("9");
                 //명중률 증가
-                UpgradeStat[16] += 5;
+                UpgradeStat[15] += 5;
                 Playerstat.accuracy *= 0.95f;
                 break;
             case 10:
                 //print("10");
                 //범위 증가
-                UpgradeStat[17] += 7;
+                UpgradeStat[16] += 7;
                 Playerstat.range *= 1.07f;
                 break;
             case 11:
                 //print("11");
                 //방어력 증가
-                UpgradeStat[14] += 3;
+                UpgradeStat[13] += 3;
                 Playerstat.defense += 3;
                 break;
             case 12:
                 //print("12");
                 //치명타 증가
-                UpgradeStat[15] += 5;
+                UpgradeStat[14] += 5;
                 Playerstat.critical += 0.5f;
                 break;
             case 13:
                 //print("13");
                 //회피율 증가
-                UpgradeStat[18] += 5;
+                UpgradeStat[17] += 5;
                 Playerstat.evasion *= 1.05f;
                 break;
             case 14:
                 //print("14");
                 //경험치 획득률 증가
-                UpgradeStat[13] += 3;
+                UpgradeStat[12] += 3;
                 Playerstat.hasExp *= 1.03f;
                 break;
             case 15:
@@ -1220,19 +1220,19 @@ public class InGameManager : MonoBehaviour
             case 16:
                 //print("16");
                 // 기술 증가
-                UpgradeStat[7] += 3;
+                UpgradeStat[6] += 3;
                 Playerstat.science += 3;
                 break;
             case 17:
                 //print("17");
                 // 폭발력 증가
-                UpgradeStat[5] += 3;
+                UpgradeStat[4] += 3;
                 Playerstat.bombDamage += 3;
                 break;
             case 18:
                 //print("18");
                 // 재장전시간 감소
-                UpgradeStat[11] += 5;
+                UpgradeStat[10] += 5;
                 Playerstat.reloadTime *= 0.95f;
                 break;
         }
