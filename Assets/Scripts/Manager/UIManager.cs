@@ -760,16 +760,26 @@ public class UIManager : MonoBehaviour
     //게임 시작
     public void GameStart()
     {
-        if (isSelect)
+        if (isSelect && GameManager.Instance.playerNum != 9)
         {
+            print(GameManager.Instance.playerNum);
             SceneManager.LoadScene("LoadScene");
             DataManager.Instance.SaveData();
+        }
+        else if (GameManager.Instance.playerNum == 9)
+        {
+            print(GameManager.Instance.playerNum);
+            MainUIGroup.CharSelect.selectObj.SetActive(true);
+            MainUIGroup.CharSelect.selectObj.GetComponent<LocalizeScript>().textKey = "The spacer is currently being prepared.";
+            MainUIGroup.CharSelect.selectObj.GetComponent<LocalizeScript>().DynamicLocal();
+            Invoke("Off", 1f);
         }
         else
         {
             MainUIGroup.CharSelect.selectObj.SetActive(true);
+            MainUIGroup.CharSelect.selectObj.GetComponent<LocalizeScript>().textKey = "Please Select Your Hero";
+            MainUIGroup.CharSelect.selectObj.GetComponent<LocalizeScript>().DynamicLocal();
             Invoke("Off", 1f);
-            print("캐릭터를 설정해주세요.");
         }
     }
     void Off()

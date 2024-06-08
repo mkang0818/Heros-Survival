@@ -51,7 +51,7 @@ public class Ch9Stat : HeroStat
     }
     IEnumerator Skill1()
     {
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < 10; i++)
         {
             Vector3 SpawnPos = new Vector3(Random.Range(-9, 9), 0, Random.Range(-9, 9));
             Instantiate(ThunderSkill, SpawnPos, Quaternion.Euler(90,0,0));

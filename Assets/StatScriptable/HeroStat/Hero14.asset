@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Hero14
   m_EditorClassIdentifier: 
   CharCode: 14
+  CharUpgrade: 0
   level: 1
   MaxExp: 100
   CurExp: 0
@@ -22,10 +23,10 @@ MonoBehaviour:
   Absorption: 0.15
   MaxbulletCount: 30
   CurbulletCount: 30
-  ReloadTime: 1.4
-  ReloadCoolTime: 1.4
+  ReloadTime: 1
+  ReloadCoolTime: 1
   BulletcurHP: 1
-  AttackSp: 0.32
+  AttackSp: 0.3
   AttackcoolTime: 0
   MoveSp: 3.5
   Damage: 12
@@ -44,6 +45,3 @@ MonoBehaviour:
   skillCurTime: 0
   Second_skillMaxTime: 15
   Second_skillCurTime: 0
-  MeleeAt: 18
-  MeleeAtMaxTime: 1
-  MeleeAtCurTime: 0

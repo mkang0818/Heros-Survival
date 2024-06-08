@@ -6727,7 +6727,6 @@ MonoBehaviour:
     type: 3}
   LevelUpEffect: {fileID: 2229799840814059726}
   PlayerSphere: {fileID: 8089695261183693289}
-  MeleeAtObj: {fileID: 6799293910284325519}
   isSpinBullet: 0
   SpinBullet: {fileID: 7653787099927154482, guid: f234e247d49336e4882aaef1dc1284a0,
     type: 3}
@@ -6805,14 +6804,17 @@ MonoBehaviour:
   FoundObjects: []
   enemy: {fileID: 0}
   shortDis: 0
-  isMelee: 0
   isReload: 0
   isDodge: 0
   isinvincible: 0
+  IsCh5Skill2: 0
+  Skill1Audio: {fileID: 8300000, guid: e687cb6e7f3b2ea439d5a47c041c6af3, type: 3}
   Skill2Audio: {fileID: 8300000, guid: 651023d3f521d3544b4a06d2bf22119d, type: 3}
-  SecondSkillObj: {fileID: 1234768143951028653}
+  SkillObj: {fileID: 2229799840814059726}
+  HeelZone: {fileID: 4369787680043664565, guid: a4956a1c3d8acb743bdd572507e1a60b,
+    type: 3}
   skill1_sprite: {fileID: 21300000, guid: f8eea02060039474484ff16da26c98b0, type: 3}
-  skill2_sprite: {fileID: 21300000, guid: 54988e6946b20644b89998bfc5fc76a5, type: 3}
+  skill2_sprite: {fileID: 21300000, guid: aab5dd616b273024ba7cc3696b2f4fe1, type: 3}
 --- !u!114 &-4718413042611302515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14048,12 +14050,6 @@ PrefabInstance:
 --- !u!4 &1234768143951028306 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9028010256090998212, guid: 2b6ca8f657e4dd54b8a02d15020f1b1a,
-    type: 3}
-  m_PrefabInstance: {fileID: 7812382420489487766}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1234768143951028653 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9028010256090997819, guid: 2b6ca8f657e4dd54b8a02d15020f1b1a,
     type: 3}
   m_PrefabInstance: {fileID: 7812382420489487766}
   m_PrefabAsset: {fileID: 0}

@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
             herostat.InitStat(herodata);
 
             herodata.CharUpgrade = InGameManager.charUpgradeNum;
-            herostat.UpgraderStat(DataManager.Instance.nowPlayer.CharGrade[herodata.CharCode - 1]);
+            herostat.UpgraderStat(herodata.CharCode, DataManager.Instance.nowPlayer.CharGrade[herodata.CharCode - 1]);
 
         }
     }
@@ -126,7 +126,6 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        if (herodata.CharCode == 4) herodata.curbulletCount = 0; herodata.maxbulletCount = 0;
         // print("max" + herodata.maxHp);
         //print("cur" + herodata.CurHp);
         //print("Level" + herodata.Level);

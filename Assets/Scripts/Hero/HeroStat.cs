@@ -251,7 +251,7 @@ public abstract class HeroStat : MonoBehaviour
         yield return new WaitForSeconds(2);
         LevelUp.SetActive(false);
     }
-    public void UpgraderStat(int Grade)
+    public void UpgraderStat(int CharNum, int Grade)
     {
         int Value = Grade switch
         {
@@ -276,8 +276,8 @@ public abstract class HeroStat : MonoBehaviour
                 herodata.curHp = herodata.maxHp;
 
                 herodata.hpRecovery += 1; //회복력
-
-                herodata.maxbulletCount += 2; // 최대 탄창 수
+                print(CharNum);
+                if(CharNum != 4) herodata.maxbulletCount += 2; // 최대 탄창 수
                 herodata.reloadTime *= 0.97f; //재장전 속도
 
                 herodata.attackSp *= 0.97f; //공격속도
