@@ -123,8 +123,7 @@ public class LocalizeScript : MonoBehaviour
                     else if (textKey2.Length > 1) GetComponent<TextMeshProUGUI>().text = "<color=#FFFFFF>" + StatValue + "</color>" + "  " + Localize(textKey2);
                     else GetComponent<TextMeshProUGUI>().text = Localize(textKey) + "  " + "<color=#FFFFFF>" + StatValue + "</color>" + "  " + Localize(textKey2);
                 }
-            }
-            
+            }            
         }
         else if (GetComponent<TextMeshProUGUI>() != null && !IsStatInfo)
         {
