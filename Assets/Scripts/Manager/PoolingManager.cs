@@ -18,8 +18,7 @@ public class PoolingManager : MonoBehaviour
     }
 
     public static PoolingManager instance;
-    // 오브젝트풀 매니저 준비 완료표시
-    public bool IsReady { get; private set; }
+
 
     [SerializeField]
     private ObjectInfo[] objectInfos = null;
@@ -44,8 +43,6 @@ public class PoolingManager : MonoBehaviour
     {
         objectInfos[0].perfab = bulletObj;
 
-        IsReady = false;
-
         for (int idx = 0; idx < objectInfos.Length; idx++)
         {
             IObjectPool<GameObject> pool = new ObjectPool<GameObject>(CreatePooledItem, OnTakeFromPool, OnReturnedToPool,
@@ -68,9 +65,6 @@ public class PoolingManager : MonoBehaviour
                 poolAbleGo.Pool.Release(poolAbleGo.gameObject);
             }
         }
-
-        //Debug.Log("오브젝트풀링 준비 완료");
-        IsReady = true;
     }
 
     // 생성

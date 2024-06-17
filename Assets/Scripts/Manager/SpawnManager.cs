@@ -33,7 +33,6 @@ public class SpawnManager : MonoBehaviour
             float randZPos = Random.Range(-10f, 10f);
             Vector3 SpawnEfxPos = new Vector3(randXPos,0 , randZPos);
 
-            //GameObject monster1111 = Instantiate(SpawnPos, SpawnEfxPos, Quaternion.identity);
             var EmySpawnEfx = PoolingManager.instance.GetGo(SpawnEfxString);
 
             EmySpawnEfx.transform.position = SpawnEfxPos;
