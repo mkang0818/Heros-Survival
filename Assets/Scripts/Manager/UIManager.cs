@@ -807,7 +807,7 @@ public class UIManager : MonoBehaviour
     }
     public void CommunityBt()
     {
-        Application.OpenURL("https://discord.gg/nskzytFU");
+        Application.OpenURL("https://discord.gg/FyQZgE7p");
     }
     public void SetMusicVolume(float Volume)
     {
