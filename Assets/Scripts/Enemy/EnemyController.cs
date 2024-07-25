@@ -58,16 +58,13 @@ public class EnemyController : PoolAble
     [HideInInspector] public bool isBomb = false;
     public GameObject BombEffect;
     public GameObject DeadEffect;
-    bool isPaused=true;
     public float SkillBulletTime = 3;
 
     public bool IsBossDead = false;
-    // Start is called before the first frame update
+
     void Start()
     {
         InitEmy();
-
-        //print("Ã¼·Â"+emydata.emyCurHP);
     }
     public void InitEmy()
     {
@@ -92,7 +89,7 @@ public class EnemyController : PoolAble
         isDead = false;
         isKnockBack = false;
     }
-    // Update is called once per frame
+
     void Update()
     {
         if (isDead) InitEmy();

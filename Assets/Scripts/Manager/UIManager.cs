@@ -147,7 +147,14 @@ public class UIManager : MonoBehaviour
     Button GetComponentBt;
     ButtonScale ButtonScaleScript;
     LocalizeScript LocalScript;
-    // Start is called before the first frame update
+
+    SoundManager soundManager;
+    GameManager gameManager;
+    private void Awake()
+    {
+        soundManager = SoundManager.Instance;
+        gameManager = GameManager.Instance;
+    }
     void Start()
     {
         Setting();
@@ -162,12 +169,12 @@ public class UIManager : MonoBehaviour
     private void Setting()
     {
         Cursor.SetCursor(MainUIGroup.Main.defaultImg, Vector2.zero, CursorMode.ForceSoftware);
-        MainUIGroup.Option.isAIBt.isOn = GameManager.Instance.IsAI;
+        MainUIGroup.Option.isAIBt.isOn = gameManager.IsAI;
 
-        SoundManager.Instance.MusicAudio = MainUIGroup.Main.MusicAudio;
-        MainUIGroup.Main.MusicAudio.volume = SoundManager.Instance.MusicVolume;
-        MainUIGroup.Option.MusicSoundSlider.value = SoundManager.Instance.MusicVolume;
-        MainUIGroup.Option.EffectSoundSlider.value = SoundManager.Instance.EffectVolume;
+        soundManager.MusicAudio = MainUIGroup.Main.MusicAudio;
+        MainUIGroup.Main.MusicAudio.volume = soundManager.MusicVolume;
+        MainUIGroup.Option.MusicSoundSlider.value = soundManager.MusicVolume;
+        MainUIGroup.Option.EffectSoundSlider.value = soundManager.EffectVolume;
     }
     private void Update()
     {
@@ -181,7 +188,6 @@ public class UIManager : MonoBehaviour
         {
             MainUIGroup.Main.HelpUI.SetActive(true);
         }
-        //else if (Input.GetKeyUp(KeyCode.F1))
         else
         {
             MainUIGroup.Main.HelpUI.SetActive(false);
@@ -322,7 +328,6 @@ public class UIManager : MonoBehaviour
                 info.AppendLine("닉네임 : (닉네임 없음)");
             }
 
-            //info.AppendLine("닉네임 : " + jsonData["nickname"].ToString());
             info.AppendLine("점수 : " + jsonData["score"].ToString());
             info.AppendLine("gamerInDate : " + jsonData["gamerInDate"].ToString());
             info.AppendLine("정렬번호 : " + jsonData["index"].ToString());
@@ -348,7 +353,6 @@ public class UIManager : MonoBehaviour
                 info.AppendLine("닉네임 : (닉네임 없음)");
             }
             MainUIGroup.Rank.RankTopScore[count].text = jsonData["score"].ToString();
-            //print((int)jsonData["atk"]-1);
             MainUIGroup.Rank.RankTopCharImg[count].sprite = MainUIGroup.Rank.CharFaceImg[int.Parse(CharNum) - 1];
 
             MainUIGroup.Rank.RankListCountryImg[count].sprite = MainUIGroup.Rank.CountryIcon[int.Parse(CountryNum)];
@@ -358,27 +362,22 @@ public class UIManager : MonoBehaviour
     void SelecthasUpdate()
     {
         MainUIGroup.Main.BackGroundObj.SetActive(false);
-        // 멘트 : 인스턴스 명칭은 통일하는게 좋습니다
+
         bool[] IsChar = DataManager.Instance.nowPlayer.IsChar;
 
         for (int i = 0; i < IsChar.Length; i++)
         {
             if (IsChar[i]) // 보유 상태
             {
-                // 멘트 : 하나의 객체에 참조되는 것은 클래스로 래핑해서 사용하는게 좋습니다
-                // 멘트 : 특히 GetChild 사용은 자제하는게 좋습니다. 왜냐하면 인스펙터 구조가 바뀌는 경우 문제가 생길 여지가 높습니다.
-                // 멘트 : GetComponent 사용을 최대한 자제하는 방향으로 수정하는게 좋습니다 GetComponent는 생각보다 호출 비용이 높은 함수입니다
                 MainUIGroup.CharSelect.SelectCharBt[i].transform.GetChild(0).gameObject.SetActive(true);
                 MainUIGroup.CharSelect.SelectCharBt[i].GetComponent<ButtonScale>().enabled = true;
                 MainUIGroup.CharSelect.SelectCharBt[i].GetComponent<Button>().enabled = true;
-                //print(i);
             }
             else // 미보유 상태
             {
                 MainUIGroup.CharSelect.SelectCharBt[i].transform.GetChild(0).gameObject.SetActive(false);
                 MainUIGroup.CharSelect.SelectCharBt[i].GetComponent<ButtonScale>().enabled = false;
                 MainUIGroup.CharSelect.SelectCharBt[i].GetComponent<Button>().enabled = false;
-                //print(i + "비활성화");
             }
         }
     }
@@ -454,16 +453,9 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < MainUIGroup.Upgrade.FireObject.Length; i++) MainUIGroup.Upgrade.FireObject[i].SetActive(false);
 
         if (DataManager.Instance.nowPlayer.IsChar[SelectCharNum] && !IsUpgrade)
-        { 
-            // 멘트 : 객체 파괴와 생성 보다는 데이터만 갈아끼우는 형식을 제공하는게 좋습니다
-            // 멘트 : 재활용하지 않으면 가비지가 많이 쌓입니다
-            //if (UpgradeChar != null) Destroy(UpgradeChar);
+        {
             UpgradeCHarNum = SelectCharNum;
 
-            // 멘트 : Vector3에 들어가는 값들을 수기로 입력하기 보다는 어떤 의미를 담는 변수인지 선언해서 사용하는게 가독성에 좋습니다
-            // 멘트 : ex) private readonly Vector3 SpawnPos = new Vector3(0, 3.35f, 2.52f);
-
-            //MainUIGroup.CharSelect.selectCharactorPrefab[SelectCharNum].SetActive(true);
             Vector3 SpawnPos = new Vector3(0, 1.33f, 4.36f);
             UpgradeChar = Instantiate(MainUIGroup.CharSelect.selectCharactorPrefab[SelectCharNum], SpawnPos, Quaternion.Euler(0f, 194f, 0f));
             UpgradeText(DataManager.Instance.nowPlayer.CharGrade[SelectCharNum], SelectCharNum);
@@ -499,26 +491,13 @@ public class UIManager : MonoBehaviour
     }
     IEnumerator UpgradeResult(int Grade, int CharNum)
     {
+        LocalizeScript resultTxtLocal = MainUIGroup.Upgrade.ResultText.GetComponent<LocalizeScript>();
         MainUIGroup.Upgrade.RightPopup.SetActive(false);
         MainUIGroup.Upgrade.IsUpgradeBt = false;
 
-        //RightUI 생기기
-
-        //if (GradePrice[Grade - 1] <= DataManager.Instance.nowPlayer.Diamond)
         if (true)
         {
-            // 멘트 : if문 사용 시 else의 조건에 오면 else문 실행 후 종료하는 방향으로 절단 if문으로 사용하는게 깔끔합니다
-            /* 
-             * 멘트 : ex) 
-             * - 기존 else문
-             * if (Grade >= 10)
-             * {
-             *    print("돈 부족");
-             *    yield break;
-             * }
-             * 
-             * - 기존 if문 내용 사용
-             */
+
             if (Grade < 10)
             {
                 DataManager.Instance.nowPlayer.Diamond -= MainUIGroup.data.GradePrice[Grade - 1];
@@ -533,8 +512,8 @@ public class UIManager : MonoBehaviour
                     MainUIGroup.Upgrade.ResultPopup.SetActive(true);
                     DataManager.Instance.nowPlayer.CharGrade[CharNum] += 1;
                     UpgradeChar.GetComponent<Animator>().SetTrigger("Success");
-                    MainUIGroup.Upgrade.ResultText.GetComponent<LocalizeScript>().textKey = "Success";
-                    MainUIGroup.Upgrade.ResultText.GetComponent<LocalizeScript>().DynamicLocal();
+                    resultTxtLocal.textKey = "Success";
+                    resultTxtLocal.DynamicLocal();
 
                     if (Grade < 10)
                     {
@@ -555,14 +534,13 @@ public class UIManager : MonoBehaviour
                     UpgradeText(Grade, CharNum);
                     DataManager.Instance.nowPlayer.CharGrade[CharNum] -= 1;
                     UpgradeChar.GetComponent<Animator>().SetTrigger("Fail");
-                    MainUIGroup.Upgrade.ResultText.GetComponent<LocalizeScript>().textKey = "fail";
-                    MainUIGroup.Upgrade.ResultText.GetComponent<LocalizeScript>().DynamicLocal();
+                    resultTxtLocal.textKey = "fail";
+                    resultTxtLocal.DynamicLocal();
                     print(MainUIGroup.Upgrade.ResultText.text);
                     print(DataManager.Instance.nowPlayer.CharGrade[CharNum] + "복구");
                 }
 
                 DataManager.Instance.SaveData();
-                //UpgradeUIStar();
             }
             else
             {
@@ -572,7 +550,7 @@ public class UIManager : MonoBehaviour
             }
             for (int i = 0; i < DataManager.Instance.nowPlayer.CharGrade.Length; i++)
             {
-                GameManager.Instance.playerUpgrade[i] = DataManager.Instance.nowPlayer.CharGrade[i];
+                gameManager.playerUpgrade[i] = DataManager.Instance.nowPlayer.CharGrade[i];
             }
         }
         else
@@ -695,7 +673,6 @@ public class UIManager : MonoBehaviour
     // 캐릭터 선택창 캐릭터 선택
     public void CharacterSelect(int charnum)
     {
-        //print(DataManager.Instance.nowPlayer.CharGrade[charnum]);
         MainUIGroup.CharSelect.SelectStars.SetActive(true);
         int Grade = DataManager.Instance.nowPlayer.CharGrade[charnum];
         for (int i = 0; i < 5; i++)
@@ -717,7 +694,6 @@ public class UIManager : MonoBehaviour
         {
             for (int i = 0; i < Grade - 5; i++)
             {
-                //print(i + 6);
                 GameObject Star = MainUIGroup.CharSelect.SelectStars.transform.GetChild(i).transform.GetChild(0).gameObject;
                 Star.GetComponent<Image>().color = new Color(255, 0, 213, 255);
                 Star.SetActive(true);
@@ -728,18 +704,16 @@ public class UIManager : MonoBehaviour
 
         MainUIGroup.CharSelect.CharactorInfoObj[charnum].SetActive(true);
         RectTransform rectTransform = MainUIGroup.CharSelect.CharactorInfoObj[charnum].GetComponent<RectTransform>();
-        // 멘트 : DoTween 사용 시 시퀀스 제어에 대해 이해력이 있는게 좋습니다
         rectTransform.DOAnchorPosX(517f, 1.5f).SetEase(Ease.OutBounce);    // 통통 튀는 연출을 위한 Ease 설정
 
         isSelect = true;
-        GameManager.Instance.playerNum = charnum;
+        gameManager.playerNum = charnum;
         // 캐릭터 이름 로컬라이징
         MainUIGroup.CharSelect.SelectUICharName.GetComponent<LocalizeScript>().textKey = MainUIGroup.data.CharNameLocalCode[charnum];
         MainUIGroup.CharSelect.SelectUICharName.GetComponent<LocalizeScript>().DynamicLocal();
 
         if (selectChar != null) Destroy(selectChar);
 
-        //selectChar = Instantiate(MainUIGroup.CharSelect.selectCharactorPrefab[charnum], new Vector3(0.04f, 2.11f, -2.28f), Quaternion.Euler(0f, 205f, 0f));
         selectChar = Instantiate(MainUIGroup.CharSelect.selectCharactorPrefab[charnum], new Vector3(0, -0.5f, 3), Quaternion.Euler(0f, 205f, 0f));
     }
 
@@ -760,25 +734,26 @@ public class UIManager : MonoBehaviour
     //게임 시작
     public void GameStart()
     {
-        if (isSelect && GameManager.Instance.playerNum != 9)
+        LocalizeScript TextLocal = MainUIGroup.CharSelect.selectObj.GetComponent<LocalizeScript>();
+        if (isSelect && gameManager.playerNum != 9)
         {
-            print(GameManager.Instance.playerNum);
+            print(gameManager.playerNum);
             SceneManager.LoadScene("LoadScene");
             DataManager.Instance.SaveData();
         }
-        else if (GameManager.Instance.playerNum == 9)
+        else if (gameManager.playerNum == 9)
         {
-            print(GameManager.Instance.playerNum);
+            print(gameManager.playerNum);
             MainUIGroup.CharSelect.selectObj.SetActive(true);
-            MainUIGroup.CharSelect.selectObj.GetComponent<LocalizeScript>().textKey = "The spacer is currently being prepared.";
-            MainUIGroup.CharSelect.selectObj.GetComponent<LocalizeScript>().DynamicLocal();
+            TextLocal.textKey = "The spacer is currently being prepared.";
+            TextLocal.DynamicLocal();
             Invoke("Off", 1f);
         }
         else
         {
             MainUIGroup.CharSelect.selectObj.SetActive(true);
-            MainUIGroup.CharSelect.selectObj.GetComponent<LocalizeScript>().textKey = "Please Select Your Hero";
-            MainUIGroup.CharSelect.selectObj.GetComponent<LocalizeScript>().DynamicLocal();
+            TextLocal.textKey = "Please Select Your Hero";
+            TextLocal.DynamicLocal();
             Invoke("Off", 1f);
         }
     }
@@ -800,10 +775,8 @@ public class UIManager : MonoBehaviour
     {
         for (int i = 0; i < MainUIGroup.Store.DiaText.Length; i++) MainUIGroup.Store.DiaText[i].text = DataManager.Instance.nowPlayer.Diamond.ToString();
 
-        // 멘트 : 가능한 int값은 변수화 시키고 나머지 + 되는 string 내용은 문자열 보간($)을 이용하는게 깔끔합니다
-        // 멘트 : 긴 내용은 string.Format()을 사용하는 것을 권장합니다
-        MainUIGroup.Option.MusicValueText.text = ((int)(SoundManager.Instance.MusicAudio.volume * 100)).ToString() + "%";
-        MainUIGroup.Option.EffectAudioValueText.text = ((int)(SoundManager.Instance.EffectVolume * 100)).ToString() + "%";
+        MainUIGroup.Option.MusicValueText.text = ((int)(soundManager.MusicAudio.volume * 100)).ToString() + "%";
+        MainUIGroup.Option.EffectAudioValueText.text = ((int)(soundManager.EffectVolume * 100)).ToString() + "%";
     }
     public void CommunityBt()
     {
@@ -811,21 +784,21 @@ public class UIManager : MonoBehaviour
     }
     public void SetMusicVolume(float Volume)
     {
-        SoundManager.Instance.MusicAudio.volume = Volume;
-        SoundManager.Instance.MusicVolume = Volume;
+        soundManager.MusicAudio.volume = Volume;
+        soundManager.MusicVolume = Volume;
 
         PlayerPrefs.SetFloat("MusicSound", Volume);
     }
     public void SetEffectVolume(float Volume)
     {
-        SoundManager.Instance.EffectVolume = Volume;
+        soundManager.EffectVolume = Volume;
         PlayerPrefs.SetFloat("EffectSound", Volume);
     }
 
     // IsAI 설정 메서드
     public void AISetting(bool isFull)
     {
-        GameManager.Instance.IsAI = isFull;
+        gameManager.IsAI = isFull;
         PlayerPrefs.SetInt("IsAI", isFull ? 1 : 0); // true면 1, false면 0 저장
         //print("AI" + isFull);
         PlayerPrefs.Save(); // 변경된 값을 저장
@@ -834,7 +807,7 @@ public class UIManager : MonoBehaviour
     // IsShake 설정 메서드
     public void ShakeSetting(bool isFull)
     {
-        GameManager.Instance.IsShake = isFull;
+        gameManager.IsShake = isFull;
         PlayerPrefs.SetInt("IsShake", isFull ? 1 : 0); // true면 1, false면 0 저장
         //print("SHAKE" + isFull);
         PlayerPrefs.Save(); // 변경된 값을 저장
@@ -843,7 +816,7 @@ public class UIManager : MonoBehaviour
     // IsRange 설정 메서드
     public void RangeSetting(bool isFull)
     {
-        GameManager.Instance.IsRange = isFull;
+        gameManager.IsRange = isFull;
         PlayerPrefs.SetInt("IsRange", isFull ? 1 : 0); // true면 1, false면 0 저장
         //print("SHAKE" + isFull);
         PlayerPrefs.Save(); // 변경된 값을 저장

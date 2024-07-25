@@ -67,6 +67,7 @@ public class LocalizeScript : MonoBehaviour
 
     public void LocalizeChanged()
     {
+        TextMeshProUGUI textMesh = GetComponent<TextMeshProUGUI>();
         if (textKey2 == "")
         {
             textKey2 = ".";
@@ -76,59 +77,50 @@ public class LocalizeScript : MonoBehaviour
         {
             if (IsPer)
             {
-                //print(11);
                 if (StatValue > 0)
                 {
-                    //print(11);
-                    if (textKey.Length > 1) GetComponent<TextMeshProUGUI>().text = Localize(textKey) + "<color=#00FF00>" + " +" + StatValue + "%" + "</color>" + "  " + Localize(textKey2);
-                    else if (textKey2.Length > 1) GetComponent<TextMeshProUGUI>().text = "<color=#00FF00>" + " +" + StatValue + "%" + "</color>" + "  " + Localize(textKey2);
-                    else GetComponent<TextMeshProUGUI>().text = Localize(textKey) + "<color=#00FF00>" + " +" + StatValue + "%" + "</color>" + "  " + Localize(textKey2);
+                    if (textKey.Length > 1) textMesh.text = Localize(textKey) + "<color=#00FF00>" + " +" + StatValue + "%" + "</color>" + "  " + Localize(textKey2);
+                    else if (textKey2.Length > 1) textMesh.text = "<color=#00FF00>" + " +" + StatValue + "%" + "</color>" + "  " + Localize(textKey2);
+                    else textMesh.text = Localize(textKey) + "<color=#00FF00>" + " +" + StatValue + "%" + "</color>" + "  " + Localize(textKey2);
                 }
                 else if (StatValue < 0)
                 {
-                    //print(11);
-                    if (textKey.Length > 1) GetComponent<TextMeshProUGUI>().text = Localize(textKey) + "  " + "<color=#FF0000>" + StatValue + "%" + "</color>" + "  " + Localize(textKey2);
-                    else if (textKey2.Length > 1) GetComponent<TextMeshProUGUI>().text = "<color=#FF0000>" + StatValue + "%" + "</color>" + "  " + Localize(textKey2);
-                    else GetComponent<TextMeshProUGUI>().text = Localize(textKey) + "  " + "<color=#FF0000>" + StatValue + "%" + "</color>" + "  " + Localize(textKey2);
+                    if (textKey.Length > 1) textMesh.text = Localize(textKey) + "  " + "<color=#FF0000>" + StatValue + "%" + "</color>" + "  " + Localize(textKey2);
+                    else if (textKey2.Length > 1) textMesh.text = "<color=#FF0000>" + StatValue + "%" + "</color>" + "  " + Localize(textKey2);
+                    else textMesh.text = Localize(textKey) + "  " + "<color=#FF0000>" + StatValue + "%" + "</color>" + "  " + Localize(textKey2);
                 }
                 else
                 {
-                    //print(11);
-                    if (textKey.Length > 1) GetComponent<TextMeshProUGUI>().text = Localize(textKey) + "  " + "<color=#FFFFFF>" + StatValue + "%" + "</color>" + "  " + Localize(textKey2);
-                    else if (textKey2.Length > 1) GetComponent<TextMeshProUGUI>().text = "<color=#FFFFFF>" + StatValue + "%" + "</color>" + "  " + Localize(textKey2);
-                    else GetComponent<TextMeshProUGUI>().text = Localize(textKey) + "  " + "<color=#FFFFFF>" + StatValue + "%" + "</color>" + "  " + Localize(textKey2);
+                    if (textKey.Length > 1) textMesh.text = Localize(textKey) + "  " + "<color=#FFFFFF>" + StatValue + "%" + "</color>" + "  " + Localize(textKey2);
+                    else if (textKey2.Length > 1) textMesh.text = "<color=#FFFFFF>" + StatValue + "%" + "</color>" + "  " + Localize(textKey2);
+                    else textMesh.text = Localize(textKey) + "  " + "<color=#FFFFFF>" + StatValue + "%" + "</color>" + "  " + Localize(textKey2);
                 }
             }
             else
             {
-                //print(1);
                 if (StatValue > 0)
                 {
-                    //print(11);
-                    if (textKey.Length > 1) GetComponent<TextMeshProUGUI>().text = Localize(textKey) + "<color=#00FF00>" + " +" + StatValue + "</color>" + "  " + Localize(textKey2);
-                    else if (textKey2.Length > 1) GetComponent<TextMeshProUGUI>().text = "<color=#00FF00>" + " +" + StatValue + "</color>" + "  " + Localize(textKey2);
-                    else GetComponent<TextMeshProUGUI>().text = Localize(textKey) + "<color=#00FF00>" + " +" + StatValue + "</color>" + "  " + Localize(textKey2);
+                    if (textKey.Length > 1) textMesh.text = Localize(textKey) + "<color=#00FF00>" + " +" + StatValue + "</color>" + "  " + Localize(textKey2);
+                    else if (textKey2.Length > 1) textMesh.text = "<color=#00FF00>" + " +" + StatValue + "</color>" + "  " + Localize(textKey2);
+                    else textMesh.text = Localize(textKey) + "<color=#00FF00>" + " +" + StatValue + "</color>" + "  " + Localize(textKey2);
                 }
                 else if (StatValue < 0)
                 {
-                    //print(11);
-                    if (textKey.Length > 1) GetComponent<TextMeshProUGUI>().text = Localize(textKey) + "  " + "<color=#FF0000>" + StatValue + "</color>" + "  " + Localize(textKey2);
-                    else if (textKey2.Length > 1) GetComponent<TextMeshProUGUI>().text = "<color=#FF0000>" + StatValue + "</color>" + "  " + Localize(textKey2);
-                    else GetComponent<TextMeshProUGUI>().text = Localize(textKey) + "  " + "<color=#FF0000>" + StatValue + "</color>" + "  " + Localize(textKey2);
+                    if (textKey.Length > 1) textMesh.text = Localize(textKey) + "  " + "<color=#FF0000>" + StatValue + "</color>" + "  " + Localize(textKey2);
+                    else if (textKey2.Length > 1) textMesh.text = "<color=#FF0000>" + StatValue + "</color>" + "  " + Localize(textKey2);
+                    else textMesh.text = Localize(textKey) + "  " + "<color=#FF0000>" + StatValue + "</color>" + "  " + Localize(textKey2);
                 }
                 else
                 {
-                    //print(11);
-                    if (textKey.Length > 1) GetComponent<TextMeshProUGUI>().text = Localize(textKey) + "  " + "<color=#FFFFFF>" + StatValue + "</color>" + "  " + Localize(textKey2);
-                    else if (textKey2.Length > 1) GetComponent<TextMeshProUGUI>().text = "<color=#FFFFFF>" + StatValue + "</color>" + "  " + Localize(textKey2);
-                    else GetComponent<TextMeshProUGUI>().text = Localize(textKey) + "  " + "<color=#FFFFFF>" + StatValue + "</color>" + "  " + Localize(textKey2);
+                    if (textKey.Length > 1) textMesh.text = Localize(textKey) + "  " + "<color=#FFFFFF>" + StatValue + "</color>" + "  " + Localize(textKey2);
+                    else if (textKey2.Length > 1) textMesh.text = "<color=#FFFFFF>" + StatValue + "</color>" + "  " + Localize(textKey2);
+                    else textMesh.text = Localize(textKey) + "  " + "<color=#FFFFFF>" + StatValue + "</color>" + "  " + Localize(textKey2);
                 }
             }            
         }
-        else if (GetComponent<TextMeshProUGUI>() != null && !IsStatInfo)
+        else if (textMesh != null && !IsStatInfo)
         {
-            //print(11);
-            GetComponent<TextMeshProUGUI>().text = Localize(textKey);
+            textMesh.text = Localize(textKey);
         }
         LocalizationInstance.LocalizeChanged += LocalizeChanged;
     }

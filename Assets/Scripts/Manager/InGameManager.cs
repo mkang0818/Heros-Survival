@@ -371,7 +371,6 @@ public class InGameManager : MonoBehaviour
                 InGameUIGroup.InLvUpUI.LvUpContentTransform[i].GetComponent<RectTransform>().sizeDelta = new Vector2(InGameUIGroup.InStoreUI.ItemImgContentTransform.GetComponent<RectTransform>().sizeDelta.x, InGameUIGroup.InStoreUI.ItemImgContentTransform.childCount * 100f); // 이미지의 높이를 100이라고 가정
             }
 
-            ////////////////////리롤재화 추가 임시로 상점재화로
             InGameUIGroup.InLvUpUI.LvUpRerollPriceText.text = CurRerollMoney.ToString();
 
 
@@ -386,7 +385,7 @@ public class InGameManager : MonoBehaviour
         {
             print("상점ui");
             CurRerollMoney = MaxRerollMoney; // 스테이지에 맞는 리롤 재화 초기화
-            //player.SetActive(false);
+
             for (int i = 0; i < 4; i++) InGameUIGroup.InStoreUI.ItemArr[i].SetActive(true);
 
             for (int i = 0; i < randItem.Length; i++)
@@ -534,11 +533,6 @@ public class InGameManager : MonoBehaviour
 
             ItemActiveNum = 33;
             SpawnManagerActive(1);
-
-
-            //InGameUIGroup.InData.SpawnObj[6].SetActive(true);
-            //InGameUIGroup.InData.SpawnObj[2].SetActive(true);
-            //InGameUIGroup.InData.SpawnObj[2].GetComponent<SpawnManager>().StartCoroutine("spawnMosnter");
             EmyItem();
         }
     }
@@ -547,10 +541,11 @@ public class InGameManager : MonoBehaviour
         for (int i = 0; i < index; i++)
         {
             //print(i+"스폰 활성화");
+            SpawnManager spawnManager = InGameUIGroup.InData.SpawnObj[i].GetComponent<SpawnManager>();
             InGameUIGroup.InData.SpawnObj[i].SetActive(true);
-            InGameUIGroup.InData.SpawnObj[i].GetComponent<SpawnManager>().StartCoroutine("spawnMosnter");
-            InGameUIGroup.InData.SpawnObj[i].GetComponent<SpawnManager>().target = player.gameObject;
-            InGameUIGroup.InData.SpawnObj[i].GetComponent<SpawnManager>().level *= 1.02f;
+            spawnManager.StartCoroutine("spawnMosnter");
+            spawnManager.target = player.gameObject;
+            spawnManager.level *= 1.02f;
         }
     }
     // 레벨업 버튼 기능
@@ -676,15 +671,12 @@ public class InGameManager : MonoBehaviour
             switch (ItemGrades[randItem[i]])
             {
                 case ItemGrade.Basic:
-                    //ItemImg[i].transform.parent.GetComponent<Image>().color = new Color(116 / 255f, 116 / 255f, 116 / 255f);
                     InGameUIGroup.InStoreUI.ItemImg[i].transform.parent.transform.parent.GetComponent<Outline>().effectColor = new Color(0 / 255f, 0 / 255f, 0 / 255f);
                     break;
                 case ItemGrade.Rare:
-                    //ItemImg[i].transform.parent.GetComponent<Image>().color = new Color(57 / 255f, 82 / 255f, 98 / 255f);
                     InGameUIGroup.InStoreUI.ItemImg[i].transform.parent.transform.parent.GetComponent<Outline>().effectColor = new Color(57 / 255f, 82 / 255f, 98 / 255f);
                     break;
                 case ItemGrade.Epic:
-                    //ItemImg[i].transform.parent.GetComponent<Image>().color = new Color(80 / 255f, 59 / 255f, 100 / 255f);
                     InGameUIGroup.InStoreUI.ItemImg[i].transform.parent.transform.parent.GetComponent<Outline>().effectColor = new Color(80 / 255f, 59 / 255f, 100 / 255f);
                     break;
             }
@@ -847,10 +839,10 @@ public class InGameManager : MonoBehaviour
 
             IsLock[index] = false;
             ItemLock[index] = false;
-
-            InGameUIGroup.InStoreUI.ItemLockBts[index].GetComponent<ButtonScale>().isClick = false;
-            InGameUIGroup.InStoreUI.ItemLockBts[index].GetComponent<ButtonScale>().buttonText.color = InGameUIGroup.InStoreUI.ItemLockBts[index].GetComponent<ButtonScale>().Textcolor;
-            InGameUIGroup.InStoreUI.ItemLockBts[index].GetComponent<ButtonScale>().buttonImage.color = InGameUIGroup.InStoreUI.ItemLockBts[index].GetComponent<ButtonScale>().Btcolor;
+            ButtonScale btScale = InGameUIGroup.InStoreUI.ItemLockBts[index].GetComponent<ButtonScale>();
+            btScale.isClick = false;
+            btScale.buttonText.color = btScale.Textcolor;
+            btScale.buttonImage.color = btScale.Btcolor;
 
             HasItem[ItemNum] = true;
 
@@ -885,20 +877,21 @@ public class InGameManager : MonoBehaviour
     GameObject AddItemImg(int Itemindex)
     {
         GameObject newSlot = Instantiate(InGameUIGroup.InStoreUI.ItemSlotPrefab, InGameUIGroup.InStoreUI.ItemImgContentTransform);
+        Image slotImg = newSlot.GetComponent<Image>();
 
         switch (ItemGrades[Itemindex])
         {
             case ItemGrade.Basic:
                 print("기본아이템");
-                newSlot.GetComponent<Image>().color = new Color(116 / 255f, 116 / 255f, 116 / 255f);
+                slotImg.color = new Color(116 / 255f, 116 / 255f, 116 / 255f);
                 break;
             case ItemGrade.Rare:
                 print("레어아이템");
-                newSlot.GetComponent<Image>().color = new Color(57 / 255f, 82 / 255f, 98 / 255f);
+                slotImg.color = new Color(57 / 255f, 82 / 255f, 98 / 255f);
                 break;
             case ItemGrade.Epic:
                 print("에픽아이템");
-                newSlot.GetComponent<Image>().color = new Color(80 / 255f, 59 / 255f, 100 / 255f);
+                slotImg.color = new Color(80 / 255f, 59 / 255f, 100 / 255f);
                 break;
         }
 
@@ -1049,12 +1042,14 @@ public class InGameManager : MonoBehaviour
             Vector3 BoxPos = new Vector3(xPox, 0, yPox);
 
             GameObject randomBox = Instantiate(InGameUIGroup.InData.RandomBox, BoxPos, Quaternion.identity);
-            randomBox.GetComponent<RandomBoxController>().target = player.gameObject;
+            RandomBoxController randBoxController = randomBox.GetComponent<RandomBoxController>();
 
-            if (RandomBoxHPItem) randomBox.GetComponent<RandomBoxController>().curHP = 1;
-            else randomBox.GetComponent<RandomBoxController>().curHP = Random.Range(2, 5);
+            randBoxController.target = player.gameObject;
 
-            if (RandomBoxCoinPerItem) randomBox.GetComponent<RandomBoxController>().CoinPer += 3;
+            if (RandomBoxHPItem) randBoxController.curHP = 1;
+            else randBoxController.curHP = Random.Range(2, 5);
+
+            if (RandomBoxCoinPerItem) randBoxController.CoinPer += 3;
 
             RandomBoxCurCooltime = RandomBoxMaxCoolTime;
         }
@@ -1239,9 +1234,9 @@ public class InGameManager : MonoBehaviour
     }
     void Localizezation(TextMeshProUGUI text, string str)
     {
-        //print(str);
-        text.GetComponent<LocalizeScript>().textKey = str;
-        text.GetComponent<LocalizeScript>().DynamicLocal();
+        LocalizeScript textLocal = text.GetComponent<LocalizeScript>();
+        textLocal.textKey = str;
+        textLocal.DynamicLocal();
     }
 }
 

@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-// 멘트 : 내 스크립트를 할당한 객체에 무조건 image 컴포넌트가 붙어잇는 경우에 대한 예제
+
 [RequireComponent(typeof(Image))]
 public class PlayerController : MonoBehaviour
 {
@@ -13,10 +13,6 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public HeroStatScriptable herodata;
     Image image;
 
-    /*void Awake()
-    {
-        image = GetComponent<Image>();
-    }*/
 
     public AudioClip ArrCoinAudio;
     public AudioClip DiaAudio;
@@ -32,20 +28,6 @@ public class PlayerController : MonoBehaviour
     TextMeshProUGUI LevelText;
     TextMeshProUGUI TxtBulletCount;
 
-    // 멘트 : 공통된 컴포넌트가 들어가는 경우 클래스로 묶어서 처리하는 것도 좋습니다
-    /* 멘트 : ex)
-     * public class Skill
-     * {
-     *   public Image Gauge;
-     *   public GameObject SliderObj;
-     *   public Slider Slider;
-     *   public Text CoolTime;
-     * }
-     * 
-     * - 선언 시
-     * Skill Skill1;
-     * Skill Skill2;
-     */
     Image Skill1Gauge;
     Slider Skill1SliderObj;
     Slider Skill1Slider;
@@ -110,61 +92,28 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         InGameManagerGetUI();
-        //print("체력"+herodata.curHp);
+
         if (isRange)
         {
             Circle.SetActive(true);
-            /* 멘트
-             * 가능한 변수화 해주세요
-             * var value = herodata.Range * 3.4f
-             * Vector3 vec = new Vector3(value, value, value);
-             * Circle.transform.localScale = vec;
-             */
-            if (herodata.CharCode != 4) Circle.transform.localScale = new Vector3(herodata.range * 3.4f, herodata.range * 3.4f, herodata.range * 3.4f);
-            else Circle.transform.localScale = new Vector3(herodata.range * 1.7f, herodata.range * 1.7f, herodata.range * 1.7f);
+
+            float Atrange = 3.4f;
+            float Atrange2 = 1.7f;
+            if (herodata.CharCode != 4) Circle.transform.localScale = new Vector3(herodata.range * Atrange, herodata.range * Atrange, herodata.range * Atrange);
+            else Circle.transform.localScale = new Vector3(herodata.range * Atrange2, herodata.range * Atrange2, herodata.range * Atrange2);
         }
     }
     void Update()
     {
-        // print("max" + herodata.maxHp);
-        //print("cur" + herodata.CurHp);
-        //print("Level" + herodata.Level);
-        //print("curExp" + herodata.curExp);
-        //print("damage" + herodata.damage);
-        // 멘트 : Update() 안에 들어가는 내용은 가능한 함수화 해주세요
-        /* 
-         * ex)
-         * void NotPlay()
-         * {
-         *   if (isStart && !isStore && !InGameManager.IsOption)
-         *   {
-         *     ...
-         *   }
-         * }
-         */
         if (isStart && !isStore && !InGameManager.IsOption)
         {
             HpRecovery();
             UpdateHP();
-
-            herodata.skillcurTime -= Time.deltaTime;
-            herodata.second_skillcurTime -= Time.deltaTime;
-            HeelTime -= Time.deltaTime;
+            Timer();
 
             herostat.Move(this.gameObject, anim);
             herostat.LevelUp(LevelUpEffect, InGameManager, LvUpAudio);
-
-            if (!isAI)
-            {
-                if (isMouse) LookMouseCursor();
-                herostat.Shot(anim, BulletPrefab, ShotPos, ReloadGauge, bulletCase);
-                herostat.Reload(anim, ReloadGauge);
-            }
-            // 멘트 : 경우의 수가 더 없으니 else문으로 바꿔주세요
-            else
-            {
-                herostat.AIAttack(anim, BulletPrefab, ShotPos, ReloadGauge, bulletCase);
-            }
+            AttackMode();
 
             if (herodata.skillcurTime <= 0 || herodata.second_skillcurTime <= 0)
             {
@@ -183,8 +132,28 @@ public class PlayerController : MonoBehaviour
             if (herodata.CharCode == 2) GetComponent<Ch2Stat>().IsRun = true;
         }
     }
+    void Timer()
+    {
+        herodata.skillcurTime -= Time.deltaTime;
+        herodata.second_skillcurTime -= Time.deltaTime;
+        HeelTime -= Time.deltaTime;
+    }
+    void AttackMode()
+    {
+        if (!isAI)
+        {
+            if (isMouse) LookMouseCursor();
+            herostat.Shot(anim, BulletPrefab, ShotPos, ReloadGauge, bulletCase);
+            herostat.Reload(anim, ReloadGauge);
+        }
+        else
+        {
+            herostat.AIAttack(anim, BulletPrefab, ShotPos, ReloadGauge, bulletCase);
+        }
+    }
     void PlayerMove()
-    {// 플레이어의 현재 위치를 가져옴
+    {
+        // 플레이어의 현재 위치를 가져옴
         Vector3 currentPosition = transform.position;
 
         // x축과 z축 위치가 공간을 벗어나면 해당 위치를 조정하여 제한
@@ -225,10 +194,8 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator InstSpinBullet()
     {
-        print("원형총알 발사!!!");
         for (int i = 0; i < 6; i++)
         {
-            print(i + "번쨰");
             yield return new WaitForSeconds(0.25f);
             GameObject spinBullet1 = Instantiate(SpinBullet, transform.position, Quaternion.identity);
             spinBullet1.GetComponent<CH6SpinBulletController>().player = gameObject.transform;
@@ -241,7 +208,6 @@ public class PlayerController : MonoBehaviour
 
         Plane GroupPlane = new Plane(Vector3.up, Vector3.zero);
 
-        // 멘트 : rayLength 선언 안하고 out float rayLength로 변수 넣어서 사용 가능합니다
         float rayLength;
 
         if (GroupPlane.Raycast(cameraRay, out rayLength))
@@ -274,6 +240,7 @@ public class PlayerController : MonoBehaviour
         {
             col.gameObject.GetComponent<TurretBulletController>().ReleaseObject();
             float Value;
+
             if ((herodata.CurHp + (herodata.science / 4)) < herodata.maxHp)
             {
                 herodata.CurHp += herodata.science / 4;
@@ -294,7 +261,6 @@ public class PlayerController : MonoBehaviour
         if (col.gameObject.CompareTag("BossFallBullet"))
         {
             float damage = col.GetComponent<BossFallBulletController>().damage;
-            //herodata.CurHp -= damage;
             PlayerDamage(damage);
 
             DamageHeelText("EmyDamageText", damage);
@@ -303,7 +269,6 @@ public class PlayerController : MonoBehaviour
         else if (col.gameObject.CompareTag("BossSpinBullet"))
         {
             float damage = col.GetComponent<BossSpinBulletController>().damage;
-            //herodata.CurHp -= damage;
             PlayerDamage(damage);
 
             DamageHeelText("EmyDamageText", damage);
@@ -314,24 +279,25 @@ public class PlayerController : MonoBehaviour
         int moneyLayer = LayerMask.NameToLayer("Coin");
         int diamondLayer = LayerMask.NameToLayer("Diamond");
         int healthLayer = LayerMask.NameToLayer("Health");
+        DropController dropController = col.gameObject.GetComponent<DropController>();
 
         if (col.transform.CompareTag("NextCoin"))
         {
             InGameManager.Nextmoney += (int)herodata.harvesting;
             SoundManager.Instance.SoundPlay("Coin", ArrCoinAudio);
-            col.gameObject.GetComponent<DropController>().ReleaseObject();
+            dropController.ReleaseObject();
         }
         else if (col.gameObject.layer == moneyLayer)
         {
             SoundManager.Instance.SoundPlay("Coin", ArrCoinAudio);
             InGameManager.GetComponent<InGameManager>().money += (int)herodata.harvesting;
-            col.gameObject.GetComponent<DropController>().ReleaseObject();
+            dropController.ReleaseObject();
         }
         else if (col.gameObject.layer == diamondLayer)
         {
             SoundManager.Instance.SoundPlay("Dia", DiaAudio);
             InGameManager.GetComponent<InGameManager>().diamond += 1;
-            col.gameObject.GetComponent<DropController>().ReleaseObject();
+            dropController.ReleaseObject();
         }
         else if (col.gameObject.layer == healthLayer)
         {
@@ -340,7 +306,7 @@ public class PlayerController : MonoBehaviour
             else
                 herodata.CurHp = herodata.maxHp;
 
-            col.gameObject.GetComponent<DropController>().ReleaseObject();
+            dropController.ReleaseObject();
         }
     }
 
@@ -348,22 +314,19 @@ public class PlayerController : MonoBehaviour
     {
         bool isEvasion = RandomEvasion(herodata.evasion);
 
-        if (isEvasion)
-        {
+        if (isEvasion) {
             print("회피!!");
         }
-        else
-        {
-            if (!herostat.isinvincible)
-            {
+        else {
+            if (!herostat.isinvincible) {
+
                 float EmyDamage = (int)(damage - (herodata.defense / 100) * (int)(damage));
                 print("플레이어 체력감소 : " + EmyDamage);
                 if (EmyDamage > 0) herodata.CurHp -= EmyDamage;
 
                 DamageHeelText("EmyDamageText", EmyDamage);
             }
-            else
-            {
+            else {
                 print("무적");
             }
         }
@@ -406,7 +369,6 @@ public class PlayerController : MonoBehaviour
             {
                 print("불");
                 float Damage = col.GetComponent<BossFireController>().damage;
-                //herodata.CurHp -= Damage;
                 PlayerDamage(Damage);
 
                 DamageHeelText("EmyDamageText", Damage);
@@ -416,16 +378,19 @@ public class PlayerController : MonoBehaviour
     }
     void InGameManagerGetUI()
     {
+        // MainUI
         hpBar = InGameManager.InGameUIGroup.InPlayUI.hpBar;
         expBar = InGameManager.InGameUIGroup.InPlayUI.ExpBar;
         LevelText = InGameManager.InGameUIGroup.InPlayUI.levelText;
         TxtBulletCount = InGameManager.InGameUIGroup.InPlayUI.BulletCountText;
 
+        // 1번스킬 게이지
         Skill1Gauge = InGameManager.InGameUIGroup.InPlayUI.Skill1Img;
         Skill1SliderObj = InGameManager.InGameUIGroup.InPlayUI.Skill1Slider;
         Skill1Slider = InGameManager.InGameUIGroup.InPlayUI.Skill1Slider;
         Skill1CoolTime = InGameManager.InGameUIGroup.InPlayUI.Skill1CoolTime;
 
+        // 2번스킬 게이지
         Skill2Gauge = InGameManager.InGameUIGroup.InPlayUI.Skill2Img;
         Skill2SliderObj = InGameManager.InGameUIGroup.InPlayUI.Skill2Slider;
         Skill2Slider = InGameManager.InGameUIGroup.InPlayUI.Skill2Slider;
@@ -445,7 +410,6 @@ public class PlayerController : MonoBehaviour
 
         if (herodata.skillcurTime > 0)
         {
-            //Skill1SliderObj.SetActive(true);
             Skill1Slider.value = 1.0f - (Mathf.Lerp(0, 100, herodata.skillcurTime / herodata.skillmaxTime) / 100);
             Skill1CoolTime.text = ((int)herodata.skillcurTime).ToString();
         }
@@ -457,7 +421,6 @@ public class PlayerController : MonoBehaviour
 
         if (herodata.second_skillcurTime > 0)
         {
-           // Skill2SliderObj.SetActive(true);
             Skill2Slider.value = 1.0f - (Mathf.Lerp(0, 100, herodata.second_skillcurTime / herodata.second_skillmaxTime) / 100);
             Skill2CoolTime.text = ((int)herodata.second_skillcurTime).ToString();
         }
@@ -507,14 +470,12 @@ public class PlayerController : MonoBehaviour
         print("죽는중");
         anim.SetTrigger("Fail");
         yield return new WaitForSeconds(1f);
-
-        print("다시 살아남");
-        //이펙트
     }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red; // 기즈모 색상 설정
         Vector3 scale;
+
         // 스케일 값 가져오기
         if (herodata.CharCode != 4) scale = new Vector3(herodata.range * 10, 0, herodata.range * 10);
         else scale = new Vector3(herodata.range * 5, 0, herodata.range * 5);

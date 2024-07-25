@@ -14,17 +14,20 @@ public class SpawnManager : MonoBehaviour
 
     public bool IsBomb = false;
     public float level = 22;
-    // Start is called before the first frame update
-    void Start()
+
+    private PoolingManager poolingManager;
+
+    void Awake()
     {
+        poolingManager = PoolingManager.instance;
     }
+
     void Update()
     {
-        Stage = InGameManager.StageNum;
-
         //스테이지마다 줄이기
-
+        Stage = InGameManager.StageNum;
     }
+
     public IEnumerator spawnMosnter()
     {
         while (true)
@@ -33,20 +36,22 @@ public class SpawnManager : MonoBehaviour
             float randZPos = Random.Range(-10f, 10f);
             Vector3 SpawnEfxPos = new Vector3(randXPos,0 , randZPos);
 
-            var EmySpawnEfx = PoolingManager.instance.GetGo(SpawnEfxString);
+            var EmySpawnEfx = poolingManager.GetGo(SpawnEfxString);
 
             EmySpawnEfx.transform.position = SpawnEfxPos;
             yield return new WaitForSeconds(0.5f);
             EmySpawnEfx.GetComponent<SpawnEfx>().EfxDestroy();
 
-            var monster = PoolingManager.instance.GetGo(EnemyText);
-            monster.GetComponent<EnemyController>().InitEmy();
+            var monster = poolingManager.GetGo(EnemyText);
+            EnemyController enemyController = monster.GetComponent<EnemyController>(); // 캐싱된 변수 사용 Getcomponent 호출 줄이기
+            enemyController.InitEmy();
             monster.transform.position = SpawnEfxPos;
 
-            monster.GetComponent<EnemyController>().target = this.target;
-            monster.GetComponent<EnemyController>().SkillBulletTime = 3;
-            monster.GetComponent<EnemyController>().levelNum = Stage;
-            if (IsBomb) monster.GetComponent<EnemyController>().isBomb = true;
+            enemyController.target = this.target;
+            enemyController.SkillBulletTime = 3;
+            enemyController.levelNum = Stage;
+            if (IsBomb) enemyController.isBomb = true;
+
             yield return new WaitForSeconds(level / 2);
         }
     }

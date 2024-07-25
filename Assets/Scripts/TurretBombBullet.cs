@@ -21,11 +21,9 @@ public class TurretBombBullet : MonoBehaviour
 
         if (flash != null)
         {
-            //Instantiate flash effect on projectile position
             var flashInstance = Instantiate(flash, transform.position, Quaternion.identity);
             flashInstance.transform.forward = gameObject.transform.forward;
 
-            //Destroy flash effect depending on particle Duration time
             var flashPs = flashInstance.GetComponent<ParticleSystem>();
             if (flashPs != null)
             {
@@ -44,16 +42,13 @@ public class TurretBombBullet : MonoBehaviour
     {
         if (speed != 0)
         {
-            rb.velocity = transform.forward * speed;
-            //transform.position += transform.forward * (speed * Time.deltaTime);         
+            rb.velocity = transform.forward * speed;        
         }
     }
     private void OnTriggerEnter(Collider col)
     {
-        //Destroy projectile on collision 총알 충돌 시 삭제
         if (col.gameObject.CompareTag("Player"))
         {
-            //GameObject hiteffect = Instantiate(hit, transform.position, Quaternion.identity);
             //print("총알삭제");
             Destroy(gameObject);
         }
@@ -67,7 +62,6 @@ public class TurretBombBullet : MonoBehaviour
             return;
         }
 
-        //Lock all axes movement and rotation
         rb.constraints = RigidbodyConstraints.FreezeAll;
         speed = 0;
 
@@ -75,7 +69,6 @@ public class TurretBombBullet : MonoBehaviour
         Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
         Vector3 pos = contact.point + contact.normal * hitOffset;
 
-        //Spawn hit effect on collision
         if (hit != null)
         {
             var hitInstance = Instantiate(hit, pos, rot);
@@ -83,7 +76,6 @@ public class TurretBombBullet : MonoBehaviour
             else if (rotationOffset != Vector3.zero) { hitInstance.transform.rotation = Quaternion.Euler(rotationOffset); }
             else { hitInstance.transform.LookAt(contact.point + contact.normal); }
 
-            //Destroy hit effects depending on particle Duration time
             var hitPs = hitInstance.GetComponent<ParticleSystem>();
             if (hitPs != null)
             {
@@ -96,7 +88,6 @@ public class TurretBombBullet : MonoBehaviour
             }
         }
 
-        //Removing trail from the projectile on cillision enter or smooth removing. Detached elements must have "AutoDestroying script"
         foreach (var detachedPrefab in Detached)
         {
             if (detachedPrefab != null)
@@ -105,11 +96,10 @@ public class TurretBombBullet : MonoBehaviour
                 Destroy(detachedPrefab, 1);
             }
         }
-        //Destroy projectile on collision 총알 충돌 시 삭제
+
         if (!collision.gameObject.CompareTag("Player"))
         {
             GameObject hiteffect = Instantiate(hit, transform.position, Quaternion.identity);
-            //print("총알삭제");
             Destroy(gameObject);
         }
     }
