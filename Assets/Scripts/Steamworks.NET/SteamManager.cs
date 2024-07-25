@@ -72,7 +72,6 @@ public class SteamManager : MonoBehaviour
             print("¿ÃπÃ ¿’¿Ω");
 
             if (NickObj!=null) NickObj.SetActive(false);
-            //NickNameText.text = DataManager.Instance.nowPlayer.nickName;
             Destroy(this.gameObject);
         }
     }

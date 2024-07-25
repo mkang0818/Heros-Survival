@@ -8,6 +8,7 @@ public class ItemManager : MonoBehaviour
 {
     public InGameManager inGameManager;
     Data data;
+
     //////heel turret//////
     public GameObject HeelTurretPrefab;
     static bool isHeelTurret = false;
@@ -82,10 +83,10 @@ public class ItemManager : MonoBehaviour
 
     public class StatData
     {
-        public StatType statType; //���� ���� ����
-        public ItemType itemType; //���� ���� ����
-        public float statValue; //���� ���� ��
-        public int PlusMinus; //���� ���� ��
+        public StatType statType;
+        public ItemType itemType;
+        public float statValue;
+        public int PlusMinus;
 
         public StatData(ItemType itemType, StatType statType, float statValue, int PlusMinus)
         {
@@ -97,8 +98,8 @@ public class ItemManager : MonoBehaviour
     }
     public class Item
     {
-        public int index; //������ ��ȣ
-        public StatData[] statDatas; //������ ���� �� ������ ���� ����
+        public int index;
+        public StatData[] statDatas;
 
         public Item(params StatData[] statDatas)
         {
@@ -637,6 +638,7 @@ public class ItemManager : MonoBehaviour
     {
         GameObject InfoTextObj = newInfo.transform.GetChild(0).gameObject;
         GameObject StatValueTextObj = newInfo.transform.GetChild(1).gameObject;
+        TextMeshProUGUI statTextMesh = StatValueTextObj.GetComponent<TextMeshProUGUI>();
 
         float percentage = 0;
 
@@ -645,18 +647,18 @@ public class ItemManager : MonoBehaviour
             percentage = 100 - (100 * Value);
             if (colorNum > 0)
             {
-                StatValueTextObj.GetComponent<TextMeshProUGUI>().text = "<color=#00FF00>" + "+" + (int)percentage + "% " + "</color>";
+                statTextMesh.text = "<color=#00FF00>" + "+" + (int)percentage + "% " + "</color>";
             }
-            else if (colorNum < 0) StatValueTextObj.GetComponent<TextMeshProUGUI>().text = "<color=#FF0000>" + -(int)percentage + "% " + "</color>";
+            else if (colorNum < 0) statTextMesh.text = "<color=#FF0000>" + -(int)percentage + "% " + "</color>";
         }
         else if (Value > 1)  //1.1일 때
         {
             percentage = (100 * Value) - 100;
             if (colorNum > 0)
             {
-                StatValueTextObj.GetComponent<TextMeshProUGUI>().text = "<color=#00FF00>" + "+" + (int)percentage + "% " + "</color>";
+                statTextMesh.text = "<color=#00FF00>" + "+" + (int)percentage + "% " + "</color>";
             }
-            else if (colorNum < 0) StatValueTextObj.GetComponent<TextMeshProUGUI>().text = "<color=#FF0000>" + -(int)percentage + "% " + "</color>";
+            else if (colorNum < 0) statTextMesh.text = "<color=#FF0000>" + -(int)percentage + "% " + "</color>";
         }
 
         InfoTextObj.GetComponent<LocalizeScript>().textKey = text;
@@ -668,7 +670,10 @@ public class ItemManager : MonoBehaviour
         {
             newInfo[i] = Instantiate(ItemInfoPrefab, ItemInfoContentTransform);
             GameObject InfoTextObj = newInfo[i].transform.GetChild(0).gameObject;
+            LocalizeScript InfoTextMesh = InfoTextObj.GetComponent<LocalizeScript>();
+
             GameObject StatValueTextObj = newInfo[i].transform.GetChild(1).gameObject;
+            TextMeshProUGUI statTextMesh = StatValueTextObj.GetComponent<TextMeshProUGUI>();
 
             ItemInfoContentTransform.GetComponent<RectTransform>().sizeDelta = new Vector2(ItemInfoContentTransform.GetComponent<RectTransform>().sizeDelta.x, ItemInfoContentTransform.childCount * 100f); // 이미지의 높이를 100이라고 가정
 
@@ -682,41 +687,41 @@ public class ItemManager : MonoBehaviour
                         case StatType.MaxHp:
                             if (item.statDatas[i].PlusMinus > 0)
                             {
-                                StatValueTextObj.GetComponent<TextMeshProUGUI>().text = "<color=green>" + "+" + (int)(item.statDatas[i].statValue) + "</color>";
-                                InfoTextObj.GetComponent<LocalizeScript>().textKey = "MaxHP";
+                                statTextMesh.text = "<color=green>" + "+" + (int)(item.statDatas[i].statValue) + "</color>";
+                                InfoTextMesh.textKey = "MaxHP";
                             }
                             else
                             {
-                                StatValueTextObj.GetComponent<TextMeshProUGUI>().text = "<color=red>" + (int)(item.statDatas[i].statValue) + "</color>";
-                                InfoTextObj.GetComponent<LocalizeScript>().textKey = "MaxHP";
+                                statTextMesh.text = "<color=red>" + (int)(item.statDatas[i].statValue) + "</color>";
+                                InfoTextMesh.textKey = "MaxHP";
                             }
                             break;
                         case StatType.CurHp:
-                            StatValueTextObj.GetComponent<TextMeshProUGUI>().text = "<color=red>" + "1" + "</color>";
-                            InfoTextObj.GetComponent<LocalizeScript>().textKey = "CurHP";
+                            statTextMesh.text = "<color=red>" + "1" + "</color>";
+                            InfoTextMesh.textKey = "CurHP";
                             break;
                         case StatType.HpRecovery:
                             if (item.statDatas[i].PlusMinus > 0)
                             {
-                                StatValueTextObj.gameObject.GetComponent<TextMeshProUGUI>().text = "<color=green>" + "+" + (int)(item.statDatas[i].statValue) + "</color>";
-                                InfoTextObj.GetComponent<LocalizeScript>().textKey = "HpRecovery";
+                                statTextMesh.text = "<color=green>" + "+" + (int)(item.statDatas[i].statValue) + "</color>";
+                                InfoTextMesh.textKey = "HpRecovery";
                             }
                             else
                             {
-                                StatValueTextObj.gameObject.GetComponent<TextMeshProUGUI>().text = "<color=red>" + (int)(item.statDatas[i].statValue) + "</color>";
-                                InfoTextObj.GetComponent<LocalizeScript>().textKey = "HpRecovery";
+                                statTextMesh.text = "<color=red>" + (int)(item.statDatas[i].statValue) + "</color>";
+                                InfoTextMesh.textKey = "HpRecovery";
                             }
                             break;
                         case StatType.MaxbulletCount:
                             if (item.statDatas[i].PlusMinus > 0)
                             {
-                                StatValueTextObj.gameObject.GetComponent<TextMeshProUGUI>().text = "<color=green>" + "+" + (int)(item.statDatas[i].statValue) + "</color>";
-                                InfoTextObj.GetComponent<LocalizeScript>().textKey = "Bullet";
+                                statTextMesh.text = "<color=green>" + "+" + (int)(item.statDatas[i].statValue) + "</color>";
+                                InfoTextMesh.textKey = "Bullet";
                             }
                             else
                             {
-                                StatValueTextObj.gameObject.GetComponent<TextMeshProUGUI>().text = "<color=red>" + (int)(item.statDatas[i].statValue) + "</color>";
-                                InfoTextObj.GetComponent<LocalizeScript>().textKey = "Bullet";
+                                statTextMesh.text = "<color=red>" + (int)(item.statDatas[i].statValue) + "</color>";
+                                InfoTextMesh.textKey = "Bullet";
                             }
                             break;
                         case StatType.ReloadTime:
@@ -734,37 +739,37 @@ public class ItemManager : MonoBehaviour
                         case StatType.Damage:
                             if (item.statDatas[i].PlusMinus > 0)
                             {
-                                StatValueTextObj.gameObject.GetComponent<TextMeshProUGUI>().text = "<color=green>" + "+" + (int)(item.statDatas[i].statValue) + "</color>";
-                                InfoTextObj.GetComponent<LocalizeScript>().textKey = "Damage";
+                                statTextMesh.text = "<color=green>" + "+" + (int)(item.statDatas[i].statValue) + "</color>";
+                                InfoTextMesh.textKey = "Damage";
                             }
                             else
                             {
-                                StatValueTextObj.GetComponent<TextMeshProUGUI>().text = "<color=red>" + (int)(item.statDatas[i].statValue) + "</color>";
-                                InfoTextObj.GetComponent<LocalizeScript>().textKey = "Damage";
+                                statTextMesh.text = "<color=red>" + (int)(item.statDatas[i].statValue) + "</color>";
+                                InfoTextMesh.textKey = "Damage";
                             }
                             break;
                         case StatType.SkillDamage:
                             if (item.statDatas[i].PlusMinus > 0)
                             {
-                                StatValueTextObj.GetComponent<TextMeshProUGUI>().text = "<color=green>" + "+" + (int)(item.statDatas[i].statValue) + "</color>";
-                                InfoTextObj.GetComponent<LocalizeScript>().textKey = "Skill";
+                                statTextMesh.text = "<color=green>" + "+" + (int)(item.statDatas[i].statValue) + "</color>";
+                                InfoTextMesh.textKey = "Skill";
                             }
                             else
                             {
-                                StatValueTextObj.GetComponent<TextMeshProUGUI>().text = "<color=red>" + (int)(item.statDatas[i].statValue) + "</color>";
-                                InfoTextObj.GetComponent<LocalizeScript>().textKey = "Skill";
+                                statTextMesh.text = "<color=red>" + (int)(item.statDatas[i].statValue) + "</color>";
+                                InfoTextMesh.textKey = "Skill";
                             }
                             break;
                         case StatType.BombDamage:
                             if (item.statDatas[i].PlusMinus > 0)
                             {
-                                StatValueTextObj.GetComponent<TextMeshProUGUI>().text = "<color=green>" + "+" + (int)(item.statDatas[i].statValue) + "</color>";
-                                InfoTextObj.GetComponent<LocalizeScript>().textKey = "Bomb";
+                                statTextMesh.text = "<color=green>" + "+" + (int)(item.statDatas[i].statValue) + "</color>";
+                                InfoTextMesh.textKey = "Bomb";
                             }
                             else
                             {
-                                StatValueTextObj.GetComponent<TextMeshProUGUI>().text = "<color=red>" + (int)(item.statDatas[i].statValue) + "</color>";
-                                InfoTextObj.GetComponent<LocalizeScript>().textKey = "Bomb";
+                                statTextMesh.text = "<color=red>" + (int)(item.statDatas[i].statValue) + "</color>";
+                                InfoTextMesh.textKey = "Bomb";
                             }
                             break;
                         case StatType.Accuracy:
@@ -778,13 +783,13 @@ public class ItemManager : MonoBehaviour
                         case StatType.Defense:
                             if (item.statDatas[i].PlusMinus > 0)
                             {
-                                StatValueTextObj.GetComponent<TextMeshProUGUI>().text = "<color=green>" + "+" + (int)(item.statDatas[i].statValue) + "</color>";
-                                InfoTextObj.GetComponent<LocalizeScript>().textKey = "Defense";
+                                statTextMesh.text = "<color=green>" + "+" + (int)(item.statDatas[i].statValue) + "</color>";
+                                InfoTextMesh.textKey = "Defense";
                             }
                             else
                             {
-                                StatValueTextObj.GetComponent<TextMeshProUGUI>().text = "<color=red>" + (int)(item.statDatas[i].statValue) + "</color>";
-                                InfoTextObj.GetComponent<LocalizeScript>().textKey = "Defense";
+                                statTextMesh.text = "<color=red>" + (int)(item.statDatas[i].statValue) + "</color>";
+                                InfoTextMesh.textKey = "Defense";
                             }
                             break;
                         case StatType.Evasion:
@@ -798,13 +803,13 @@ public class ItemManager : MonoBehaviour
                         case StatType.Science:
                             if (item.statDatas[i].PlusMinus > 0)
                             {
-                                StatValueTextObj.GetComponent<TextMeshProUGUI>().text = "<color=green>" + "+" + (int)(item.statDatas[i].statValue) + "</color>";
-                                InfoTextObj.GetComponent<LocalizeScript>().textKey = "Science";
+                                statTextMesh.text = "<color=green>" + "+" + (int)(item.statDatas[i].statValue) + "</color>";
+                                InfoTextMesh.textKey = "Science";
                             }
                             else
                             {
-                                StatValueTextObj.GetComponent<TextMeshProUGUI>().text = "<color=red>" + (int)(item.statDatas[i].statValue) + "</color>";
-                                InfoTextObj.GetComponent<LocalizeScript>().textKey = "Science";
+                                statTextMesh.text = "<color=red>" + (int)(item.statDatas[i].statValue) + "</color>";
+                                InfoTextMesh.textKey = "Science";
                             }
                             break;
                         case StatType.Range:
@@ -824,13 +829,13 @@ public class ItemManager : MonoBehaviour
                             ItemText(newInfo[i], item.statDatas[i].statValue, ItemInfo, item.statDatas[i].PlusMinus);
                             break;
                         case StatType.BulletcurHP:
-                            InfoTextObj.GetComponent<LocalizeScript>().textKey = "Bullet Penetration +1";
+                            InfoTextMesh.textKey = "Bullet Penetration +1";
                             break;
                         case StatType.MapScale:
-                            InfoTextObj.GetComponent<LocalizeScript>().textKey = "+2 wider field of view";
+                            InfoTextMesh.textKey = "+2 wider field of view";
                             break;
                         case StatType.RandomBoxMaxCoolTime:
-                            InfoTextObj.GetComponent<LocalizeScript>().textKey = "Reduced box creation time";
+                            InfoTextMesh.textKey = "Reduced box creation time";
                             break;
                     }
                     break;
@@ -839,31 +844,31 @@ public class ItemManager : MonoBehaviour
                     {
                         // BasicTurret, HeelTurret, BombTurret, SlowTurret, EmyBomb, RandomBullet, SpinBullet, LandMine
                         case StatType.BasicTurret:
-                            InfoTextObj.GetComponent<LocalizeScript>().textKey = "Normal turret";
+                            InfoTextMesh.textKey = "Normal turret";
                             break;
                         case StatType.HeelTurret:
-                            InfoTextObj.GetComponent<LocalizeScript>().textKey = "treatment turret";
+                            InfoTextMesh.textKey = "treatment turret";
                             break;
                         case StatType.BombTurret:
-                            InfoTextObj.GetComponent<LocalizeScript>().textKey = "bomb turret";
+                            InfoTextMesh.textKey = "bomb turret";
                             break;
                         case StatType.SlowTurret:
-                            InfoTextObj.GetComponent<LocalizeScript>().textKey = "Slow turret";
+                            InfoTextMesh.textKey = "Slow turret";
                             break;
                         case StatType.EmyBomb:
-                            InfoTextObj.GetComponent<LocalizeScript>().textKey = "50% Explodes When Monster Dies";
+                            InfoTextMesh.textKey = "50% Explodes When Monster Dies";
                             break;
                         case StatType.MultiBullet:
-                            InfoTextObj.GetComponent<LocalizeScript>().textKey = "Bullets everywhere";
+                            InfoTextMesh.textKey = "Bullets everywhere";
                             break;
                         case StatType.SpinBullet:
-                            InfoTextObj.GetComponent<LocalizeScript>().textKey = "rotating bullet";
+                            InfoTextMesh.textKey = "rotating bullet";
                             break;
                         case StatType.LandMine:
-                            InfoTextObj.GetComponent<LocalizeScript>().textKey = "Random mine placement";
+                            InfoTextMesh.textKey = "Random mine placement";
                             break;
                         case StatType.Reborn:
-                            InfoTextObj.GetComponent<LocalizeScript>().textKey = "When you die, you are reborn.";
+                            InfoTextMesh.textKey = "When you die, you are reborn.";
                             break;
                     }
                     break;
@@ -872,28 +877,28 @@ public class ItemManager : MonoBehaviour
                     {
                         // LvUp , FirstRerollFree, RerollSale, ItemSale , RandomBoxHPItem, RandomBoxCoinPerItem, TenPerHasMoney, randomItem
                         case StatType.LvUp:
-                            InfoTextObj.GetComponent<LocalizeScript>().textKey = "level increase";
+                            InfoTextMesh.textKey = "level increase";
                             break;
                         case StatType.FirstRerollFree:
-                            InfoTextObj.GetComponent<LocalizeScript>().textKey = "1 free refresh";
+                            InfoTextMesh.textKey = "1 free refresh";
                             break;
                         case StatType.RerollSale:
-                            InfoTextObj.GetComponent<LocalizeScript>().textKey = "refresh discount";
+                            InfoTextMesh.textKey = "refresh discount";
                             break;
                         case StatType.ItemSale:
-                            InfoTextObj.GetComponent<LocalizeScript>().textKey = "5% discount on item price";
+                            InfoTextMesh.textKey = "5% discount on item price";
                             break;
                         case StatType.RandomBoxHPItem:
-                            InfoTextObj.GetComponent<LocalizeScript>().textKey = "Defeat boxes at once";
+                            InfoTextMesh.textKey = "Defeat boxes at once";
                             break;
                         case StatType.RandomBoxCoinPerItem:
-                            InfoTextObj.GetComponent<LocalizeScript>().textKey = "Increased goods acquisition rate";
+                            InfoTextMesh.textKey = "Increased goods acquisition rate";
                             break;
                         case StatType.TenPerHasMoney:
-                            InfoTextObj.GetComponent<LocalizeScript>().textKey = "Obtain 10% of goods at the end of the game";
+                            InfoTextMesh.textKey = "Obtain 10% of goods at the end of the game";
                             break;
                         case StatType.randomItem:
-                            InfoTextObj.GetComponent<LocalizeScript>().textKey = "Random item acquisition";
+                            InfoTextMesh.textKey = "Random item acquisition";
                             break;
                     }
                     break;
@@ -1029,8 +1034,9 @@ public class ItemManager : MonoBehaviour
                                 break;
                             case StatType.MapScale:
                                 print("+2 wider field of view");
-                                ingameManager.InGameUIGroup.InData.InGameCam.gameObject.GetComponent<CameraContorller>().offset.y += item.statDatas[i].statValue;
-                                ingameManager.InGameUIGroup.InData.InGameCam.gameObject.GetComponent<CameraContorller>().offset.z += -2.5f;
+                                CameraContorller camController = ingameManager.InGameUIGroup.InData.InGameCam.gameObject.GetComponent<CameraContorller>();
+                                camController.offset.y += item.statDatas[i].statValue;
+                                camController.offset.z += -2.5f;
                                 break;
                             case StatType.RandomBoxMaxCoolTime:
                                 print("RandomBoxMaxCoolTime up");

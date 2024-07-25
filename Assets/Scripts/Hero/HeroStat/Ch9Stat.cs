@@ -29,7 +29,6 @@ public class Ch9Stat : HeroStat
     {
         if (herodata.second_skillcurTime <= 0)
         {
-            //SoundManager.Instance.SoundPlay("Ch9Skill2", Skill2_Sound);
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 Vector3 SpawnPos = new Vector3(Random.Range(-9, 9), 0, Random.Range(-9, 9));

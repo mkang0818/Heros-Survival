@@ -24,7 +24,6 @@ public class SpawnManager : MonoBehaviour
 
     void Update()
     {
-        //스테이지마다 줄이기
         Stage = InGameManager.StageNum;
     }
 

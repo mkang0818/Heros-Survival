@@ -15,12 +15,14 @@ public class EnemyController : PoolAble
     Rigidbody rigid;
 
     public InGameManager ingameManager;
-    
+
     public EmyStatScriptale emydataPrefab;
     [HideInInspector] public EmyStatScriptale emydata;
     [HideInInspector] public Enemy Emy;
 
     [SerializeField] public GameObject target;
+    private PlayerController playerController;
+    private SoundManager soundManager;
 
     public GameObject MoneyPrefab;
     public GameObject Diamond;
@@ -69,15 +71,16 @@ public class EnemyController : PoolAble
     public void InitEmy()
     {
         target = GameObject.FindGameObjectWithTag("Player");
-        emydata = Instantiate(this.emydataPrefab);
-        Emy.initSetting(emydata);
-        Emy.Attack(target);
-
-        Emy.LevelUp(levelNum);
-
+        playerController = target.GetComponent<PlayerController>();
+        soundManager = SoundManager.Instance;
         agent = GetComponent<NavMeshAgent>();
         rigid = GetComponent<Rigidbody>();
         mat = ChildMesh.GetComponent<SkinnedMeshRenderer>().material;
+
+        emydata = Instantiate(this.emydataPrefab);
+        Emy.initSetting(emydata);
+        Emy.Attack(target);
+        Emy.LevelUp(levelNum);
 
         mat.color = Color.white;
         HpBarFillImg.color = Color.green;
@@ -100,23 +103,25 @@ public class EnemyController : PoolAble
 
         BossDead();
     }
+
     void BossDead()
     {
         if (IsBossDead)
         {
             print("보스사망");
             IsBossDead = false;
-            ingameManager.GetComponent<InGameManager>().IsBossDead = true;
-            ingameManager.GetComponent<InGameManager>().CurTimer = 0;
+
+            InGameManager inGameManager = ingameManager.GetComponent<InGameManager>();
+            inGameManager.IsBossDead = true;
+            inGameManager.CurTimer = 0;
         }
     }
+
     void UpdateHP()
     {
         HpBar.value = Mathf.Lerp(HpBar.value, (float)emydata.emyCurHP / (float)emydata.emyMaxHP, Time.deltaTime * 10);
-
-        //print(gameObject.name+emydata.emyMaxHP);
-        //print(gameObject.name + emydata.emyAttack);
     }
+
     void SlowTime()
     {
         if (IsSlowTime)
@@ -133,17 +138,21 @@ public class EnemyController : PoolAble
             agent.speed = 1f;
         }
     }
+
     void AttackSound(string SoundName, AudioClip[] audioclipArr)
     {
         int randomNum = Random.Range(0, audioclipArr.Length);
-        SoundManager.Instance.SoundPlay(SoundName, audioclipArr[randomNum]);
+        soundManager.SoundPlay(SoundName, audioclipArr[randomNum]);
     }
+
     private void OnTriggerEnter(Collider col)
     {
+        BulletController bulletController = col.gameObject.GetComponent<BulletController>();
+
         if (col.gameObject.CompareTag("Bomb"))
         {
             AttackSound("PlayerBomb", PlayerBombAudio);
-            float Value = target.GetComponent<PlayerController>().herodata.bombDamage;
+            float Value = playerController.herodata.bombDamage;
             emydata.emyCurHP -= Value;
             DamageHeelText("DamageText", Value);
             KnockBack();
@@ -151,35 +160,36 @@ public class EnemyController : PoolAble
             StartCoroutine(OnDamage());
             StartCoroutine(BombTrigger(col.gameObject));
         }
+
         if (col.gameObject.CompareTag("SlowBullet"))
         {
             StartCoroutine(SlowMove());
-            emydata.emyCurHP -= target.GetComponent<PlayerController>().herodata.science;
+            emydata.emyCurHP -= playerController.herodata.science;
             StartCoroutine(OnDamage());
-            col.gameObject.GetComponent<BulletController>().ReleaseObject();
+            bulletController.ReleaseObject();
         }
         else if (col.gameObject.CompareTag("TurretBullet"))
         {
             AttackSound("PlayerAttack", ArrPlayerAtAudio);
-            emydata.emyCurHP -= target.GetComponent<PlayerController>().herodata.science;
+            emydata.emyCurHP -= playerController.herodata.science;
 
-            float Value = target.GetComponent<PlayerController>().herodata.science;
+            float Value = playerController.herodata.science;
             DamageHeelText("DamageText", Value);
 
             StartCoroutine(OnDamage());
-            col.gameObject.GetComponent<BulletController>().ReleaseObject();
+            bulletController.ReleaseObject();
         }
 
         if (col.gameObject.CompareTag("Bullet") || col.gameObject.CompareTag("AttackPos"))
         {
             float Value, Absorption;
-            float Damage = (target.GetComponent<PlayerController>().herodata.damage);
+            float Damage = (playerController.herodata.damage);
 
             //총알 체력 감소
-            if (col.gameObject.GetComponent<BulletController>() != null) col.gameObject.GetComponent<BulletController>().BulletcurHP -= 1;
+            if (bulletController != null) bulletController.BulletcurHP -= 1;
 
             // 치명타 확률 구현
-            float CriticalPer = target.GetComponent<PlayerController>().herodata.critical;
+            float CriticalPer = playerController.herodata.critical;
             float randCritical = Random.Range(0, 100);
             if (randCritical <= CriticalPer)
             {
@@ -199,9 +209,8 @@ public class EnemyController : PoolAble
             // 보스가 아닐때 체력흡수 적용
             if (gameObject.layer != 12)
             {
-                Absorption = emydata.emyCurHP * target.GetComponent<PlayerController>().herodata.absorption;
+                Absorption = emydata.emyCurHP * playerController.herodata.absorption;
                 emydata.emyCurHP -= Absorption;
-                //target.GetComponent<PlayerController>().herodata.CurHp += Absorption;
                 Value += Absorption;
             }
 
@@ -211,30 +220,36 @@ public class EnemyController : PoolAble
         }
         else if (col.gameObject.CompareTag("Ch1SkillBullet")) Destroy(col.gameObject);
     }
+
     IEnumerator BombTrigger(GameObject HitObj)
     {
         yield return new WaitForSeconds(0.1f);
-        if(HitObj!=null) HitObj.GetComponent<SphereCollider>().enabled = false;
-        //오류남
+        if (HitObj != null) HitObj.GetComponent<SphereCollider>().enabled = false;
     }
+
     IEnumerator SlowMove()
     {
-        emydata.emyMoveSp /= 2;
+        emydata.emyMoveSp *= .5f;
         yield return new WaitForSeconds(3f);
         emydata.emyMoveSp *= 2;
     }
+
     private void OnTriggerStay(Collider col)
     {
+        BulletController bulletController = col.gameObject.GetComponent<BulletController>();
+        PlayerController playerController = col.gameObject.GetComponent<PlayerController>();
+        Ch4Stat Ch4Controller = col.GetComponent<Ch4Stat>();
+
         if (col.gameObject.CompareTag("SkillBullet"))
         {
             SkillBulletTime += Time.deltaTime;
 
             if (SkillBulletTime >= 2f)
             {
-                if (col.gameObject.GetComponent<BulletController>() != null) col.gameObject.GetComponent<BulletController>().BulletcurHP -= 1;
+                if (bulletController != null) bulletController.BulletcurHP -= 1;
 
                 float Value;
-                float Damage = (target.GetComponent<PlayerController>().herodata.skillDamage);
+                float Damage = (playerController.herodata.skillDamage);
                 emydata.emyCurHP -= Damage;
                 Value = Damage;
 
@@ -244,13 +259,12 @@ public class EnemyController : PoolAble
                 SkillBulletTime = 0;
             }
         }
-        if (col.gameObject.CompareTag("Player") && !col.GetComponent<PlayerController>().isStore)
+        if (col.gameObject.CompareTag("Player") && !playerController.isStore)
         {
             AttackCurTime -= Time.deltaTime;
             if (AttackCurTime <= 0)
             {
-                //print("11");
-                bool isEvasion = RandomEvasion(col.GetComponent<PlayerController>().herodata.evasion);
+                bool isEvasion = RandomEvasion(playerController.herodata.evasion);
 
                 if (isEvasion)
                 {
@@ -259,11 +273,11 @@ public class EnemyController : PoolAble
                 }
                 else
                 {
-                    if (!col.GetComponent<PlayerController>().herostat.isinvincible)
+                    if (!playerController.herostat.isinvincible)
                     {
-                        float EmyDamage = (int)(emydata.emyAttack - (col.GetComponent<PlayerController>().herodata.defense/100)* (int)(emydata.emyAttack));
+                        float EmyDamage = (int)(emydata.emyAttack - (playerController.herodata.defense / 100) * (int)(emydata.emyAttack));
                         print("플레이어 체력감소 : " + EmyDamage);
-                        if(EmyDamage > 0) col.GetComponent<PlayerController>().herodata.CurHp -= EmyDamage;
+                        if (EmyDamage > 0) playerController.herodata.CurHp -= EmyDamage;
 
                         DamageHeelText("EmyDamageText", EmyDamage);
                         AttackCurTime = AttackMaxTime;
@@ -278,19 +292,17 @@ public class EnemyController : PoolAble
                 if (emydata.emyCode == 1 || emydata.emyCode == 2 || emydata.emyCode == 7)
                 {
                     print("삭제");
-                    if (col.GetComponent<Ch4Stat>() != null && (col.GetComponent<Ch4Stat>().isDash || col.GetComponent<Ch4Stat>().isSpin))
+                    if (Ch4Controller != null && (Ch4Controller.isDash || Ch4Controller.isSpin))
                     {
                         return;
                     }
                     Destroy(Instantiate(DeadEffect, transform.position, Quaternion.identity), 2f);
-                    SoundManager.Instance.SoundPlay("PlayerAt", ArrPlayerAtAudio[Random.Range(0, ArrPlayerAtAudio.Length)]);
-                    //SoundManager.Instance.SoundPlay("PlayerAt", SoundManager.Instance.PlayerPainAudio[Random.Range(0, SoundManager.Instance.PlayerPainAudio.Length)]);
-                    //Destroy(gameObject);
+                    soundManager.SoundPlay("PlayerAt", ArrPlayerAtAudio[Random.Range(0, ArrPlayerAtAudio.Length)]);
                     DeadEvent();
                 }
             }
 
-            
+
         }
         if (col.gameObject.CompareTag("CH12SkillZone"))
         {
@@ -304,7 +316,7 @@ public class EnemyController : PoolAble
     }
     void skillAttack()
     {
-        emydata.emyCurHP -= target.GetComponent<PlayerController>().herodata.skillDamage;
+        emydata.emyCurHP -= playerController.herodata.skillDamage;
     }
     void KnockBack()
     {
@@ -318,7 +330,7 @@ public class EnemyController : PoolAble
                 if (isKnockBack) StartCoroutine(KnockBack(knockbackDirection));
             }
         }
-       
+
     }
     IEnumerator KnockBack(Vector3 knockbackDirection)
     {
@@ -356,7 +368,7 @@ public class EnemyController : PoolAble
                 mat.color = Color.gray;
                 HpBarFillImg.color = Color.gray;
 
-                Invoke("DeadEvent",4);
+                Invoke("DeadEvent", 4);
             }
         }
     }
@@ -373,7 +385,7 @@ public class EnemyController : PoolAble
             damageEffect.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "-" + ((int)Value).ToString();
             damageEffect.GetComponent<DamageText>().DamageTextOn();
         }
-        else if((int)Value < 0)
+        else if ((int)Value < 0)
         {
             print("방어");
         }
@@ -387,6 +399,5 @@ public class EnemyController : PoolAble
     {
         isDead = true;
         ReleaseObject();
-        //Instantiate(MoneyPrefab, transform.position, Quaternion.identity);
     }
 }

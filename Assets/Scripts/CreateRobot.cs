@@ -73,10 +73,12 @@ public class CreateRobot : MonoBehaviour
                 anim.SetTrigger("Shot");
 
                 var bullet = PoolingManager.instance.GetGo("Bullet");
+                BulletController bulletController = bullet.GetComponent<BulletController>();
+
                 bullet.transform.position = ShotPos.transform.position;
                 bullet.transform.rotation = ShotPos.transform.rotation;
-                bullet.GetComponent<BulletController>().Player = gameObject;
-                bullet.GetComponent<BulletController>().range = range;
+                bulletController.Player = gameObject;
+                bulletController.range = range;
                 attackCurCooltime = 1;
             }
         }

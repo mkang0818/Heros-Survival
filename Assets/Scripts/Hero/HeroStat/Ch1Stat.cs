@@ -49,8 +49,10 @@ public class Ch1Stat : HeroStat
                 SoundManager.Instance.SoundPlay("Ch1Skill1", Skill1_Sound);
                 
                 GameObject skillbullet = Instantiate(SkillBullet, SkillShotPos.position, SkillShotPos.rotation);
-                skillbullet.GetComponent<BulletController>().Player = gameObject;
-                skillbullet.GetComponent<BulletController>().range = herodata.range;
+                
+                BulletController bulletController= skillbullet.GetComponent<BulletController>();
+                bulletController.Player = gameObject;
+                bulletController.range = herodata.range;
             }
         }
     }

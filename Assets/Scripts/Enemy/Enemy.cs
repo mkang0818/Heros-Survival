@@ -10,31 +10,41 @@ public abstract class Enemy : MonoBehaviour
 
     private string DiaText = "DiamondLight";
     private string CoinText = "CoinLight";
+
     public virtual void initSetting(EmyStatScriptale emydata)
     {
         this.emydata = emydata;
     }
+
     public abstract void Attack(GameObject target);
+
     public virtual void Dead(GameObject target, bool isBomb, GameObject BombEffect)
     {
+        PlayerController playerController = target.GetComponent<PlayerController>();
+
         if (emydata.emyCurHP <= 0)
         {
             StopAllCoroutines();
             float DiamondPer = Random.Range(0, 100);
-            if (DiamondPer <= target.GetComponent<PlayerController>().herodata.diamondPer)
+            if (DiamondPer <= playerController.herodata.diamondPer)
             {
                 Vector3 DiaPos = new Vector3(transform.position.x + Random.Range(-1, 1), transform.position.y, transform.position.z + Random.Range(-1, 1));
                 var DiaObj = PoolingManager.instance.GetGo(DiaText);
+                DropLightController diaController = DiaObj.GetComponent<DropLightController>();
+
                 DiaObj.transform.position = DiaPos;
-                DiaObj.GetComponent<DropLightController>().target = target;
-                DiaObj.GetComponent<DropLightController>().CreateDropObj();
+                diaController.target = target;
+                diaController.CreateDropObj();
             }
             Vector3 CoinPos = new Vector3(transform.position.x + Random.Range(-1, 1), transform.position.y, transform.position.z + Random.Range(-1, 1));
+            
             var CoinObj = PoolingManager.instance.GetGo(CoinText);
+            DropLightController coinController = CoinObj.GetComponent<DropLightController>();
+
             CoinObj.transform.position = CoinPos;
-            CoinObj.GetComponent<DropLightController>().target = target;
-            CoinObj.GetComponent<DropLightController>().CreateDropObj();
-            target.GetComponent<PlayerController>().herodata.curExp += target.GetComponent<PlayerController>().herodata.hasExp;
+            coinController.target = target;
+            coinController.CreateDropObj();
+            playerController.herodata.curExp += playerController.herodata.hasExp;
 
             int rand = Random.Range(0,100);
             if (isBomb && rand>=50) Instantiate(BombEffect,transform.position,Quaternion.identity);
@@ -65,10 +75,9 @@ public abstract class Enemy : MonoBehaviour
             _ => EmyLevel = 0
         };
         float dd = levelNum - (1 + EmyLevel);
-        //print(emydata.emyCode + "몬스터" + dd);
+
         for (int i = 0; i < levelNum - (1 + EmyLevel); i++)
         {
-            //print("레벨업");
             emydata.emyMaxHP *= 1.05f;
             emydata.emyCurHP *= 1.05f;
             emydata.emyAttack *= 1.03f;

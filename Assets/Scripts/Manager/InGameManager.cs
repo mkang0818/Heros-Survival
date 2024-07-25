@@ -207,6 +207,10 @@ public class InGameManager : MonoBehaviour
     }
 
 
+    private void Awake()
+    {
+        
+    }
     void Start()
     {
         SoundInit();
@@ -445,7 +449,7 @@ public class InGameManager : MonoBehaviour
     {
         isStore = false;
         StageNum += 1;
-        //player.SetActive(true);
+
         InGameUIGroup.InPlayUI.ReloadGauge.SetActive(false);
         player.isStore = false;
 
@@ -461,12 +465,11 @@ public class InGameManager : MonoBehaviour
         //print("최대 리롤금액" + MaxRerollMoney);
     }
 
-    // 스테이지 시작 시 스폰오브젝트 활성화
     void Spawn()
     {
         print("현재 스테이지 : "+ StageNum);
         InGameUIGroup.InPlayUI.PlayUI.SetActive(true);
-        //스테이지가 늘어날수록 낮은레벨 몬스터는 적게 높은레벨 몬스터는 많게
+
         if (StageNum >= 21)
         {
             MaxRerollMoney++;
@@ -482,7 +485,6 @@ public class InGameManager : MonoBehaviour
             PlusRerollMoney = 6;
             InGameUIGroup.InData.SpawnObj[6].SetActive(true);
 
-            //시간 무제한으로 변경
             EmyItem();
         }
         else if (StageNum >= 16)
@@ -622,6 +624,8 @@ public class InGameManager : MonoBehaviour
             InGameUIGroup.InPlayUI.PlayUI.SetActive(true);
         }
     }
+
+
     // ------------------상점------------------
 
     // 아이템 중복 방지 기능

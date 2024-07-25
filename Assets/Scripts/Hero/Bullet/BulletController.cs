@@ -31,8 +31,7 @@ public class BulletController : PoolAble
     {
         if (speed != 0)
         {
-            rb.velocity = transform.forward * speed;
-            //transform.position += transform.forward * (speed * Time.deltaTime);         
+            rb.velocity = transform.forward * speed;        
         }
 
         BulletDestroy(Player.transform, range);
@@ -52,8 +51,6 @@ public class BulletController : PoolAble
         }
         else if (BulletcurHP <= 0)
         {
-            /*GameObject BulletHit = Instantiate(hit, transform.position, Quaternion.identity);
-            BombEffect(BulletHit);*/
             if (!IsSkill) ReleaseObject();
             else Destroy(gameObject);
         }
